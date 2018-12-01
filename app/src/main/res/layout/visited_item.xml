@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/visited_item_image"
+            android:layout_width="100dp"
+            android:layout_height="75dp"
+            android:layout_margin="10dp"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/visited_item_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Restaurant Name"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textStyle="bold" />
+
+        <!--<TextView-->
+        <!--android:id="@+id/item_address"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:text="22 Example Lane, Birmingham, B91 HYS" />-->
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/review_meal_btn"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:text="Review Meal"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:background="@color/colorAccent"
+        android:paddingHorizontal="10dp"
+        android:layout_gravity="center"
+        />
+
+</LinearLayout>

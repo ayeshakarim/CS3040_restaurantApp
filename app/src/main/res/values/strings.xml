@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">My App 1</string>
+    <string name="title_home">Explore</string>
+    <string name="title_search">Search</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_history">My Bookings</string>
+    <string name="profile_btn_info">Personal Information</string>
+    <string name="profile_btn_new_review">Write a Review</string>
+    <string name="profile_btn_new_restaurant">Add a Restaurant</string>
+    <string name="profile_btn_settings">Settings</string>
+    <string name="profile_btn_help">Help</string>
+    <string name="profile_btn_deleteAccount">Delete Account</string>
+    <string name="profile_btn_notifications">Allow Notifications</string>
+    <string name="profile_btn_password">Change Password</string>
+    <string name="profile_btn_terms">Terms and Conditions</string>
+    <string name="bookings_list">Bookings</string>
+    <string name="reviews_list">Reviews</string>
+
+    <string name="log_out_string">Log Out</string>
+
+
+    <string name="settings">Settings</string>
+
+    <string name="long_Text">
+
+        This This This This This This This This This This This This This This This This This This This
+        This This This This This This This This This This This This This This This This This This This
+
+        IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS
+        IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS IS
+
+        The The The The The The The The The The The The The The The The The The The The The The The The
+        The The The The The The The The The The The The The The The The The The The The The The The The
+
+        Last Last Last Last Last Last Last Last Last Last Last Last Last Last Last Last Last Last Last
+        Last Last Last Last Last Last Last Last Last Last Last Last Last Last Last Last Last Last Last
+
+        Fragment Fragment Fragment Fragment Fragment Fragment Fragment Fragment Fragment Fragment Fragment
+        Fragment Fragment Fragment Fragment Fragment Fragment Fragment Fragment Fragment Fragment Fragment
+
+
+    </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

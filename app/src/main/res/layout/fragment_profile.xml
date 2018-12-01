@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ayesha.cs3040.CS3040_restaurantApp.ProfileFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/profile_title"
+            android:text="Profile"
+            android:textColor="@color/colorPrimary"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:padding="15dp"/>
+
+        <ImageView
+            android:id="@+id/user_icon"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:src="@mipmap/ic_launcher_round"
+            />
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Person Name"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/user_start_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Active Since 2018 "
+            android:textSize="12dp"/>
+
+        <View
+            android:layout_height="1.5dp"
+            android:layout_width="match_parent"
+            android:layout_marginTop="25dp"
+            android:background="#A9A9A9" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <Button
+            android:id="@+id/btn_user_info"
+            android:paddingLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/background_light"
+            android:text="@string/profile_btn_info"
+            android:textAllCaps="false"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textAlignment="textStart"
+            android:drawableLeft="@drawable/ic_person_black_24dp"
+            android:drawableTint="@color/colorPrimary"
+            android:drawablePadding="20dp"
+            />
+        <View
+            android:layout_height="1.5dp"
+            android:layout_width="match_parent"
+            android:background="#A9A9A9" />
+        <Button
+            android:id="@+id/btn_write_review"
+            android:paddingLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/background_light"
+            android:text="@string/profile_btn_new_review"
+            android:textAllCaps="false"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textAlignment="textStart"
+            android:drawableLeft="@drawable/ic_edit_black_24dp"
+            android:drawableTint="@color/colorPrimary"
+            android:drawablePadding="20dp"
+            />
+        <View
+            android:layout_height="1.5dp"
+            android:layout_width="match_parent"
+            android:background="#A9A9A9" />
+        <!--<Button-->
+            <!--android:id="@+id/btn_add_restaurant"-->
+            <!--android:paddingLeft="10dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@android:color/background_light"-->
+            <!--android:text="@string/profile_btn_new_restaurant"-->
+            <!--android:textAllCaps="false"-->
+            <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"-->
+            <!--android:textAlignment="textStart"-->
+            <!--android:drawableLeft="@drawable/ic_add_black_24dp"-->
+            <!--android:drawableTint="@color/colorPrimary"-->
+            <!--android:drawablePadding="20dp"-->
+            <!--/>-->
+        <View
+            android:layout_height="1.5dp"
+            android:layout_width="match_parent"
+            android:background="#A9A9A9" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btn_notifications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/background_light"
+                android:drawableLeft="@drawable/ic_notifications"
+                android:drawablePadding="20dp"
+                android:drawableTint="@color/colorPrimary"
+                android:paddingLeft="10dp"
+                android:text="@string/profile_btn_notifications"
+                android:textAllCaps="false"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="125dp" />
+        </LinearLayout>
+        <View
+            android:layout_height="1.5dp"
+            android:layout_width="match_parent"
+            android:background="#A9A9A9" />
+
+        <Button
+            android:id="@+id/btn_password"
+            android:paddingLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/background_light"
+            android:text="@string/profile_btn_password"
+            android:textAllCaps="false"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textAlignment="textStart"
+            android:drawableLeft="@drawable/ic_security_black_24dp"
+            android:drawableTint="@color/colorPrimary"
+            android:drawablePadding="20dp"
+
+            />
+        <View
+            android:layout_height="1.5dp"
+            android:layout_width="match_parent"
+            android:background="#A9A9A9" />
+        <Button
+            android:id="@+id/btn_help"
+            android:paddingLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/background_light"
+            android:text="@string/profile_btn_help"
+            android:textAllCaps="false"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textAlignment="textStart"
+            android:drawableLeft="@drawable/ic_help_black_24dp"
+            android:drawableTint="@color/colorPrimary"
+            android:drawablePadding="20dp"
+            />
+        <View
+            android:layout_height="1.5dp"
+            android:layout_width="match_parent"
+            android:background="#A9A9A9" />
+        <Button
+            android:id="@+id/btn_terms"
+            android:paddingLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/background_light"
+            android:text="@string/profile_btn_terms"
+            android:textAllCaps="false"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textAlignment="textStart"
+            android:drawableLeft="@drawable/ic_settings"
+            android:drawableTint="@color/colorPrimary"
+            android:drawablePadding="20dp"
+            />
+        <View
+            android:layout_height="1.5dp"
+            android:layout_width="match_parent"
+            android:background="#A9A9A9" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    </LinearLayout>
+
+</FrameLayout>
