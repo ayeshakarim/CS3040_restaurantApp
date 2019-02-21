@@ -53,24 +53,6 @@
             android:orientation="vertical"
             android:layout_marginTop="15dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Visited Places"
-                android:textStyle="bold"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textColor="#555555"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                />
-
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:id="@+id/visited_rv">
-            </android.support.v7.widget.RecyclerView>
-
         </LinearLayout>
 
     </LinearLayout>

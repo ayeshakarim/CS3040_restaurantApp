@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layouts">
+
+        <include layout="@layout/activity_search"
+            android:id="@+id/activity_search"
+            android:visibility="visible"/>
+        <include layout="@layout/loading_layout"
+            android:id="@+id/loading_layout"
+            android:visibility="gone"/>
+        <!--<include layout="@layout/not_connected_layout"-->
+            <!--android:id="@+id/not_connected_layout"-->
+            <!--android:visibility="gone"/>-->
+        <include layout="@layout/permission_layout"
+            android:id="@+id/permission_layout"
+            android:visibility="gone"/>
+        <!--<include layout="@layout/restaurant_layout"-->
+            <!--android:id="@+id/restaurant_layout"-->
+            <!--android:visibility="gone"/>-->
+    </RelativeLayout>
+
+</RelativeLayout>

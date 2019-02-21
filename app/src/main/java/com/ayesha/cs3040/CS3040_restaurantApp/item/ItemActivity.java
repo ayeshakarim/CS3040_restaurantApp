@@ -4,15 +4,21 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.ayesha.cs3040.CS3040_restaurantApp.explore.ExploreRecyclerAdapter;
 import com.ayesha.cs3040.myapp1.R;
 import com.ayesha.cs3040.CS3040_restaurantApp.profile.ProfileActivity;
 
-public class ItemActivity extends AppCompatActivity {
+import java.io.Serializable;
 
+public class ItemActivity extends AppCompatActivity implements Serializable {
+
+    public RestaurantItem item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,19 +45,41 @@ public class ItemActivity extends AppCompatActivity {
 
     private void getIncomingIntent(){
 
-        if(getIntent().hasExtra("item_name")){
+        if(getIntent().hasExtra("restaurant")){
 
-            String itemName = getIntent().getStringExtra("item_name");
+            Bundle bundle = getIntent().getExtras();
+            if(bundle!=null) {
+                item = (RestaurantItem) bundle.getSerializable("restaurant");
+                String item_name = item.getItem_name();
+                String address = item.getItem_address();
+                String website = item.getWebsite();
+                float rating = item.getRating();
 
-            setName( itemName);
+                setParams(item_name, address, rating, website);
+
+            }
+            else {
+                Log.e("null", "null");
+            }
+
         }
     }
 
-    private void setName( String itemName){
+    private void setParams( String itemName, String address, float itemRating, String itemWebsite ){
 
         TextView name = findViewById(R.id.item_name);
         name.setText(itemName);
+
+        TextView item_address = findViewById(R.id.item_address);
+        item_address.setText(address);
+
+        RatingBar rating = findViewById(R.id.item_rating);
+        rating.setRating(itemRating);
+
+        TextView website = findViewById(R.id.item_website);
+        website.setText(itemWebsite);
     }
+
 
     public void openSection(int value){
         Intent i = new Intent(this, ProfileActivity.class);

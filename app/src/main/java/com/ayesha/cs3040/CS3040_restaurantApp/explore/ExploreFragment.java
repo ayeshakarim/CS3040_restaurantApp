@@ -1,8 +1,14 @@
 package com.ayesha.cs3040.CS3040_restaurantApp.explore;
 
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,24 +18,35 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ayesha.cs3040.CS3040_restaurantApp.InfoFinder;
+import com.ayesha.cs3040.CS3040_restaurantApp.item.FoodItem;
+import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
+import com.ayesha.cs3040.CS3040_restaurantApp.map.MapActivity;
 import com.ayesha.cs3040.CS3040_restaurantApp.search.SearchFragment;
 import com.ayesha.cs3040.myapp1.R;
+
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 
 public class ExploreFragment extends Fragment implements View.OnClickListener{
 
-    private List<ExploreItem> rv_list;
+    private List<RestaurantItem> rv_list;
     private RecyclerView recyclerView;
+    private List<FoodItem> mealList;
+    private FloatingActionButton mapBtn;
+
+
 
     public ExploreFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,23 +57,39 @@ public class ExploreFragment extends Fragment implements View.OnClickListener{
         recyclerView = (RecyclerView) view.findViewById(R.id.home_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        FloatingActionButton writeReview = (FloatingActionButton) view.findViewById(R.id.fab);
-        writeReview.setOnClickListener(new View.OnClickListener() {
+        mapBtn = (FloatingActionButton) view.findViewById(R.id.fab);
+        mapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Map View is Disabled", Toast.LENGTH_SHORT ).show();
             }
+
+//        if (rv_list.get(position).getLocation() == null) {
+//                mapBtn.setActivated(false);
+//        } else {
+//                mapBtn.setActivated(true);
+//                mapBtn.setOnClickListener(new View.OnClickListener() {
+//
+//                    public void onClick(View v) {
+//                        Intent i = new Intent(getActivity(), MapActivity.class);
+//                        i.putExtra(MapActivity.ITEM, rssItem);
+//                        startActivity(i);
+//                    }
+//                });
+//        }
+
+
         });
 
         bookings_search.setOnClickListener(this);
 
         rv_list = new ArrayList<>();
-        rv_list.add(new ExploreItem("Item 1", R.drawable.ic_image, "55 Example Lane, Birmingham, B90 23H", true, false));
-        rv_list.add(new ExploreItem("Item 2", R.drawable.ic_image, "55 Example Lane, Birmingham, B90 23H", true, false));
-        rv_list.add(new ExploreItem("Item 3", R.drawable.ic_image, "55 Example Lane, Birmingham, B90 23H", true, false));
-        rv_list.add(new ExploreItem("Item 4", R.drawable.ic_image, "55 Example Lane, Birmingham, B90 23H", true, false));
-        rv_list.add(new ExploreItem("Item 5", R.drawable.ic_image, "55 Example Lane, Birmingham, B90 23H", true, false));
-        rv_list.add(new ExploreItem("Item 6", R.drawable.ic_image, "55 Example Lane, Birmingham, B90 23H", true, false));
+        rv_list.add(new RestaurantItem("Resturant 1", 2, 3,"55 Example Lane, Birmingham, B90 23H", "www.example.com"));
+        rv_list.add(new RestaurantItem("Resturant 2", 3, 4, "66 Example Lane, Birmingham, B90 23H", "www.example.com"));
+        rv_list.add(new RestaurantItem("Resturant 3", 1,3, "77 Example Lane, Birmingham, B90 23H", "www.example.com"));
+        rv_list.add(new RestaurantItem("Resturant 4", 3,2, "88 Example Lane, Birmingham, B90 23H", "www.example.com"));
+        rv_list.add(new RestaurantItem("Resturant 5", 4,4, "55 Example Lane, Birmingham, B90 23H", "www.example.com"));
+        rv_list.add(new RestaurantItem("Resturant 6", 3,2, "55 Example Lane, Birmingham, B90 23H", "www.example.com"));
 
 
         ExploreRecyclerAdapter mAdapter = new ExploreRecyclerAdapter(getContext(), rv_list);
@@ -76,7 +109,9 @@ public class ExploreFragment extends Fragment implements View.OnClickListener{
                 replaceFragment(fragment);
                 break;
         }
+
     }
+
 
     public void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();

@@ -111,6 +111,7 @@
                         />
 
                     <RatingBar
+                        android:id="@+id/item_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="?android:attr/ratingBarStyleSmall"
@@ -120,131 +121,131 @@
                         android:rating="4"
                         android:stepSize="1" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content">-->
 
-                        <android.support.v7.widget.CardView
-                            android:layout_width="100dp"
-                            android:layout_height="30dp"
-                            app:cardCornerRadius="20dp"
-                            app:cardMaxElevation="2dp"
-                            app:cardElevation="1dp"
-                            android:layout_centerInParent="true"
-                            android:layout_marginLeft="10dp">
-
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:scaleType="centerCrop"
-                                android:layout_centerHorizontal="true"
-                                android:background="@color/colorPrimary"
-                                />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentLeft="true"
-                                android:orientation="vertical"
-                                >
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center"
-                                    android:text="Tag Item 1"
-                                    android:textColor="#FFF"
-                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                                    android:textStyle="bold"
-                                    />
-
-                            </LinearLayout>
-
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:layout_width="100dp"
-                            android:layout_height="30dp"
-                            app:cardCornerRadius="20dp"
-                            app:cardMaxElevation="2dp"
-                            app:cardElevation="1dp"
-                            android:layout_centerInParent="true"
-                            android:layout_marginLeft="10dp">
+                        <!--<android.support.v7.widget.CardView-->
+                            <!--android:layout_width="100dp"-->
+                            <!--android:layout_height="30dp"-->
+                            <!--app:cardCornerRadius="20dp"-->
+                            <!--app:cardMaxElevation="2dp"-->
+                            <!--app:cardElevation="1dp"-->
+                            <!--android:layout_centerInParent="true"-->
+                            <!--android:layout_marginLeft="10dp">-->
 
 
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:scaleType="centerCrop"
-                                android:layout_centerHorizontal="true"
-                                android:background="@color/colorPrimary"
-                                />
+                            <!--<ImageView-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_gravity="center"-->
+                                <!--android:scaleType="centerCrop"-->
+                                <!--android:layout_centerHorizontal="true"-->
+                                <!--android:background="@color/colorPrimary"-->
+                                <!--/>-->
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentLeft="true"
-                                android:orientation="vertical"
-                                >
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_alignParentLeft="true"-->
+                                <!--android:orientation="vertical"-->
+                                <!--&gt;-->
 
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center"
-                                    android:text="Tag Item 2"
-                                    android:textColor="#FFF"
-                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                                    android:textStyle="bold"
-                                    />
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="match_parent"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:text="Tag Item 1"-->
+                                    <!--android:textColor="#FFF"-->
+                                    <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"-->
+                                    <!--android:textStyle="bold"-->
+                                    <!--/>-->
 
-                            </LinearLayout>
+                            <!--</LinearLayout>-->
 
-                        </android.support.v7.widget.CardView>
+                        <!--</android.support.v7.widget.CardView>-->
 
-                        <android.support.v7.widget.CardView
-                            android:layout_width="100dp"
-                            android:layout_height="30dp"
-                            app:cardCornerRadius="20dp"
-                            app:cardMaxElevation="2dp"
-                            app:cardElevation="1dp"
-                            android:layout_centerInParent="true"
-                            android:layout_marginLeft="10dp">
+                        <!--<android.support.v7.widget.CardView-->
+                            <!--android:layout_width="100dp"-->
+                            <!--android:layout_height="30dp"-->
+                            <!--app:cardCornerRadius="20dp"-->
+                            <!--app:cardMaxElevation="2dp"-->
+                            <!--app:cardElevation="1dp"-->
+                            <!--android:layout_centerInParent="true"-->
+                            <!--android:layout_marginLeft="10dp">-->
 
 
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:scaleType="centerCrop"
-                                android:layout_centerHorizontal="true"
-                                android:background="@color/colorPrimary"
-                                />
+                            <!--<ImageView-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_gravity="center"-->
+                                <!--android:scaleType="centerCrop"-->
+                                <!--android:layout_centerHorizontal="true"-->
+                                <!--android:background="@color/colorPrimary"-->
+                                <!--/>-->
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentLeft="true"
-                                android:orientation="vertical"
-                                >
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_alignParentLeft="true"-->
+                                <!--android:orientation="vertical"-->
+                                <!--&gt;-->
 
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center"
-                                    android:text="Tag Item 3"
-                                    android:textColor="#FFF"
-                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                                    android:textStyle="bold"
-                                    />
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="match_parent"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:text="Tag Item 2"-->
+                                    <!--android:textColor="#FFF"-->
+                                    <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"-->
+                                    <!--android:textStyle="bold"-->
+                                    <!--/>-->
 
-                            </LinearLayout>
+                            <!--</LinearLayout>-->
 
-                        </android.support.v7.widget.CardView>
+                        <!--</android.support.v7.widget.CardView>-->
 
-                    </LinearLayout>
+                        <!--<android.support.v7.widget.CardView-->
+                            <!--android:layout_width="100dp"-->
+                            <!--android:layout_height="30dp"-->
+                            <!--app:cardCornerRadius="20dp"-->
+                            <!--app:cardMaxElevation="2dp"-->
+                            <!--app:cardElevation="1dp"-->
+                            <!--android:layout_centerInParent="true"-->
+                            <!--android:layout_marginLeft="10dp">-->
+
+
+                            <!--<ImageView-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_gravity="center"-->
+                                <!--android:scaleType="centerCrop"-->
+                                <!--android:layout_centerHorizontal="true"-->
+                                <!--android:background="@color/colorPrimary"-->
+                                <!--/>-->
+
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_alignParentLeft="true"-->
+                                <!--android:orientation="vertical"-->
+                                <!--&gt;-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="match_parent"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:text="Tag Item 3"-->
+                                    <!--android:textColor="#FFF"-->
+                                    <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"-->
+                                    <!--android:textStyle="bold"-->
+                                    <!--/>-->
+
+                            <!--</LinearLayout>-->
+
+                        <!--</android.support.v7.widget.CardView>-->
+
+                    <!--</LinearLayout>-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -253,6 +254,7 @@
                         android:layout_marginTop="25dp">
 
                         <TextView
+                            android:id="@+id/item_address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
@@ -261,12 +263,12 @@
                             android:drawableTint="@color/colorPrimary"
                             android:drawablePadding="10dp"
                             android:paddingStart="10dp"/>
-                        <TextView
-                            android:paddingStart="45dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:text="Birmingham, B19 999"/>
+                        <!--<TextView-->
+                            <!--android:paddingStart="45dp"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"-->
+                            <!--android:text="Birmingham, B19 999"/>-->
 
                         <View
                             android:layout_marginTop="10dp"
@@ -293,6 +295,7 @@
                             android:layout_width="match_parent" />
 
                         <TextView
+                            android:id="@+id/item_website"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
@@ -302,30 +305,6 @@
                             android:drawableTint="@color/colorPrimary"
                             android:drawablePadding="10dp"
                             android:paddingStart="10dp"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="30dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Map Location"
-                            android:textStyle="bold"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-                            android:textColor="#666666"
-                            android:layout_marginVertical="10dp"
-                            />
-
-                        <ImageView
-                            android:id="@+id/item_map_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="150dp"
-                            android:src="@color/vpi__background_holo_light"/>
 
                     </LinearLayout>
 

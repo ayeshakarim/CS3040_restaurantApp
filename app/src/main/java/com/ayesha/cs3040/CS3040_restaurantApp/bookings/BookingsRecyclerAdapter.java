@@ -11,15 +11,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ayesha.cs3040.myapp1.R;
-import com.ayesha.cs3040.CS3040_restaurantApp.explore.ExploreItem;
+import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 
 import java.util.List;
 
 public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecyclerAdapter.ViewHolder>{
 
-    private List<ExploreItem> item_list;
+    private List<RestaurantItem> item_list;
 
-    public BookingsRecyclerAdapter(List<ExploreItem> items) {this.item_list = items;}
+    public BookingsRecyclerAdapter(List<RestaurantItem> items) {this.item_list = items;}
 
     @NonNull
     @Override
@@ -33,18 +33,22 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         String name = item_list.get(position).getItem_name();
-        int imageURL = item_list.get(position).getId();
+        String address = item_list.get(position).getItem_address();
+//        int imageURL = item_list.get(position).getId();
         boolean btnVisited = item_list.get(position).isVisited();
         holder.name.setText(name);
-        holder.image.setImageResource(imageURL);
+        holder.address.setText(address);
+//        holder.image.setImageResource(imageURL);
 
         if(btnVisited){
             holder.btnLable.setText("Visited");
             holder.btnLable.setBackgroundColor(Color.parseColor("grey"));
             holder.btnLable.setTextColor(Color.parseColor("#555555"));
+            holder.btnLable.setEnabled(false);
         }
         else {
             holder.btnLable.setText("Add to Visited");
+
         }
 
     }
@@ -58,15 +62,15 @@ public class BookingsRecyclerAdapter extends RecyclerView.Adapter<BookingsRecycl
 
         private View mView;
         private TextView name;
-        private ImageView image;
+        private TextView address;
         private TextView btnLable;
         private LinearLayout parentLayout;
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            name = mView.findViewById(R.id.booked_item_text);
-            image = mView.findViewById(R.id.booked_item_image);
-            btnLable = mView.findViewById(R.id.add_visited_btn);
+            name = mView.findViewById(R.id.booking_name);
+            address = mView.findViewById(R.id.booking_address);
+            btnLable = mView.findViewById(R.id.visit_btn);
 
         }
     }

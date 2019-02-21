@@ -2,24 +2,26 @@ package com.ayesha.cs3040.CS3040_restaurantApp.review;
 
 
 import com.ayesha.cs3040.CS3040_restaurantApp.item.FoodItem;
-import com.ayesha.cs3040.CS3040_restaurantApp.explore.ExploreItem;
+import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
+
+import java.util.List;
 
 public class Review {
     private String id;
-    private int rating;
+    private float rating;
     private String comment;
-    private ExploreItem item;
-    private FoodItem foodItem;
+    private RestaurantItem item;
+    private List<FoodItem> foodItems;
 
     public Review() {
     }
 
-    public Review(String id, int rating, String comment, ExploreItem item, FoodItem foodItem) {
+    public Review(String id, float rating, String comment, RestaurantItem item, List<FoodItem> foodItems) {
         this.id = id;
         this.rating = rating;
         this.comment = comment;
         this.item = item;
-        this.foodItem = foodItem;
+        this.foodItems = foodItems;
     }
 
     public String getId() {
@@ -30,11 +32,11 @@ public class Review {
         this.id = id;
     }
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 
@@ -46,19 +48,23 @@ public class Review {
         this.comment = comment;
     }
 
-    public ExploreItem getItem() {
+    public RestaurantItem getItem() {
         return item;
     }
 
-    public void setItem(ExploreItem item) {
+    public void setItem(RestaurantItem item) {
         this.item = item;
     }
 
-    public FoodItem getFoodItem() {
-        return foodItem;
+    public void setFoodItem(FoodItem foodItem) {
+        this.foodItems.add(foodItem);
     }
 
-    public void setFoodItem(FoodItem foodItem) {
-        this.foodItem = foodItem;
+    public List<FoodItem> getFoodItems() {
+        return foodItems;
+    }
+
+    public void setFoodItems(List<FoodItem> foodItems) {
+        this.foodItems = foodItems;
     }
 }

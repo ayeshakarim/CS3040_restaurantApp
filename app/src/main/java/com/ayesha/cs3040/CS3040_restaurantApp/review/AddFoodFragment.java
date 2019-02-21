@@ -3,12 +3,15 @@ package com.ayesha.cs3040.CS3040_restaurantApp.review;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ayesha.cs3040.myapp1.R;
@@ -18,6 +21,8 @@ public class AddFoodFragment extends Fragment {
 
     public static final String[] COURSE_OPTIONS =  {"Starter", "Main", "Dessert", "Appetizer", "Side"};
 //    final Fragment reviewFragment = new WriteReviewFragment();
+    public EditText name;
+    public EditText price;
 
     public AddFoodFragment() {
         // Required empty public constructor
@@ -38,6 +43,11 @@ public class AddFoodFragment extends Fragment {
 
         view.findViewById(R.id.food_item_submit).setOnClickListener(mListener1);
         view.findViewById(R.id.add_food_back_btn).setOnClickListener(mListener1);
+
+        name = (EditText) view.findViewById(R.id.food_item_name);
+        price = (EditText) view.findViewById(R.id.food_item_price);
+        price.setInputType(InputType.TYPE_CLASS_NUMBER |
+                InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
 
         return view;

@@ -51,10 +51,6 @@ public class ProfileFragment extends Fragment {
                     openSection(2);
 
                     break;
-//                case R.id.btn_add_restaurant:
-//                    Toast.makeText(getContext(), "Add Restaurant Button Clicked" , Toast.LENGTH_SHORT ).show();
-//                    break;
-
                 case R.id.btn_terms:
                     Toast.makeText(getContext(), "Term Button Clicked" , Toast.LENGTH_SHORT ).show();
                     break;

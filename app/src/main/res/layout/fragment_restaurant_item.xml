@@ -110,6 +110,7 @@
                 />
 
             <RatingBar
+                android:id="@+id/item_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="?android:attr/ratingBarStyleSmall"
@@ -349,6 +350,44 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="My Meals"
+                    android:textStyle="bold"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+                    android:textColor="#666666"
+                    android:layout_marginVertical="10dp"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/meal_list_name"
+                    android:text="Food Item"
+                    />
+                <TextView
+                    android:id="@+id/meal_list_price"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="£10.10"
+                    android:textAlignment="textEnd"
+                    />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="Reviews"
                     android:textStyle="bold"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
@@ -368,12 +407,12 @@
     </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_write_review"
+        android:id="@+id/fab_book"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:clickable="true"
-        android:src="@drawable/ic_edit_black_24dp"
+        android:src="@drawable/ic_add_black_24dp"
         android:tooltipText="write a review"
         android:tint="@android:color/white"
         android:layout_alignParentEnd="true"

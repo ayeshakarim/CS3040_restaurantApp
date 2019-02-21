@@ -1,21 +1,29 @@
 package com.ayesha.cs3040.CS3040_restaurantApp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+
 import android.view.Menu;
 import android.view.MenuItem;
-
 import com.ayesha.cs3040.CS3040_restaurantApp.search.SearchFragment;
 import com.ayesha.cs3040.myapp1.R;
 import com.ayesha.cs3040.CS3040_restaurantApp.bookings.BookingsFragment;
 import com.ayesha.cs3040.CS3040_restaurantApp.explore.ExploreFragment;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
 public class MainActivity extends AppCompatActivity {
 
+    private LocationManager locationManager;
 
     final Fragment fragment1 = new ExploreFragment();
     final Fragment fragment2 = new BookingsFragment();
@@ -28,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 
 
@@ -59,8 +69,10 @@ public class MainActivity extends AppCompatActivity {
                     return true;
 
                 case R.id.navigation_search:
-                    fm.beginTransaction().hide(active).show(fragment3).commit();
-                    active = fragment3;
+//                    fm.beginTransaction().hide(active).show(fragment3).commit();
+//                    active = fragment3;
+                    Intent i = new Intent(MainActivity.this, SearchActivity.class);
+                    startActivity(i);
                     return true;
                 case R.id.navigation_profile:
                     fm.beginTransaction().hide(active).show(fragment4).commit();
@@ -83,6 +95,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
 }

@@ -10,7 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ayesha.cs3040.CS3040_restaurantApp.explore.ExploreItem;
+import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
+import com.ayesha.cs3040.CS3040_restaurantApp.item.FoodItem;
 import com.ayesha.cs3040.myapp1.R;
 
 import java.util.ArrayList;
@@ -21,9 +22,9 @@ import java.util.List;
  */
 public class BookingsFragment extends Fragment {
 
-    private RecyclerView hrzRecyclerView;
-    private RecyclerView vrtRecyclerView;
-    private List<ExploreItem> rv_list;
+    private RecyclerView recyclerView;
+    private List<RestaurantItem> rv_list;
+    private List<FoodItem> mealList;
 
 
     public BookingsFragment() {
@@ -37,28 +38,22 @@ public class BookingsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bookings, container, false);
 
-        hrzRecyclerView = (RecyclerView) view.findViewById(R.id.booking_rv);
-        hrzRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        vrtRecyclerView = (RecyclerView) view.findViewById(R.id.visited_rv);
-        vrtRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView = (RecyclerView) view.findViewById(R.id.booking_rv);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         rv_list = new ArrayList<>();
-        rv_list.add(new ExploreItem("Item 1", R.drawable.ic_image, "55 Example Lane, Birmingham, B90 23H", false, false));
-        rv_list.add(new ExploreItem("Item 2", R.drawable.ic_image, "55 Example Lane, Birmingham, B90 23H", false, false));
-        rv_list.add(new ExploreItem("Item 3", R.drawable.ic_image, "55 Example Lane, Birmingham, B90 23H", false, true));
-        rv_list.add(new ExploreItem("Item 4", R.drawable.ic_image, "55 Example Lane, Birmingham, B90 23H", false, true));
-        rv_list.add(new ExploreItem("Item 5", R.drawable.ic_image, "55 Example Lane, Birmingham, B90 23H", false, false));
-        rv_list.add(new ExploreItem("Item 6", R.drawable.ic_image, "55 Example Lane, Birmingham, B90 23H", false, false));
+        rv_list.add(new RestaurantItem("Resturant 1", 2, 3,"55 Example Lane, Birmingham, B90 23H", "www.example.com"));
+        rv_list.add(new RestaurantItem("Resturant 2", 3, 4, "66 Example Lane, Birmingham, B90 23H", "www.example.com"));
+        rv_list.add(new RestaurantItem("Resturant 3", 1,3, "77 Example Lane, Birmingham, B90 23H", "www.example.com"));
+        rv_list.add(new RestaurantItem("Resturant 4", 3,2, "88 Example Lane, Birmingham, B90 23H", "www.example.com"));
+        rv_list.add(new RestaurantItem("Resturant 5", 4,4, "55 Example Lane, Birmingham, B90 23H", "www.example.com"));
+        rv_list.add(new RestaurantItem("Resturant 6", 3,2, "55 Example Lane, Birmingham, B90 23H", "www.example.com"));
 
         BookingsRecyclerAdapter mAdapter = new BookingsRecyclerAdapter(rv_list);
 
-        hrzRecyclerView.setAdapter(mAdapter);
-        hrzRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        VisitedRecyclerAdapter mAdapter1 = new VisitedRecyclerAdapter(rv_list);
-
-        vrtRecyclerView.setAdapter(mAdapter1);
-        vrtRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         return view;
     }
