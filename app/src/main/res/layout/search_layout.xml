@@ -24,9 +24,9 @@
         <include layout="@layout/permission_layout"
             android:id="@+id/permission_layout"
             android:visibility="gone"/>
-        <!--<include layout="@layout/restaurant_layout"-->
-            <!--android:id="@+id/restaurant_layout"-->
-            <!--android:visibility="gone"/>-->
+        <include layout="@layout/restaurant_results_layout"
+            android:id="@+id/restaurant_results_layout"
+            android:visibility="gone"/>
     </RelativeLayout>
 
 </RelativeLayout>

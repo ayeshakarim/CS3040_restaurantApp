@@ -31,25 +31,14 @@ public class InfoFinder implements Runnable {
             }
             if (System.currentTimeMillis() - startTime >= 10000) {
                 activity.setSuccess(false);
-                activity.runOnUiThread(this);
+                activity.runOnUiThread(activity);
                 return;
             }
         }
-        activity.setSuccess(getRestaurants().size() < 0 || getRestaurants() != null);
-        activity.runOnUiThread(this);
+        activity.setSuccess(!getRestaurants().contains(RestaurantItem.INVALID));
+        activity.runOnUiThread(activity);
     }
 
-    public void raisePrice() {
-        jsonEvaluator.raisePrice();
-    }
-
-    public void lowerPrice() {
-        jsonEvaluator.lowerPrice();
-    }
-
-    public void lowerRadius() {
-        jsonEvaluator.lowerRadius();
-    }
 
     public ArrayList<RestaurantItem> getRestaurants() {
         return jsonEvaluator.getRestaurants();

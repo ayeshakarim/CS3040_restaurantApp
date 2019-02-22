@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/explore_title"
-        android:text="Explore"
+        android:text="Visited Restaurants"
         android:textColor="@color/colorPrimary"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
         android:textSize="25dp"

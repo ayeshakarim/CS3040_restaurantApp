@@ -102,23 +102,23 @@ public class ExploreFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        Fragment fragment = null;
-        switch (view.getId()) {
-            case R.id.explore_search_bar:
-                fragment = new SearchFragment();
-                replaceFragment(fragment);
-                break;
-        }
+//        Fragment fragment = null;
+//        switch (view.getId()) {
+//            case R.id.explore_search_bar:
+//                fragment = new SearchFragment();
+//                replaceFragment(fragment);
+//                break;
+//        }
 
     }
 
 
-    public void replaceFragment(Fragment fragment) {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
+//    public void replaceFragment(Fragment fragment) {
+//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//        transaction.replace(R.id.main_container, fragment);
+//        transaction.addToBackStack(null);
+//        transaction.commit();
+//    }
 
 
 }

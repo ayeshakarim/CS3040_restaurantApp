@@ -17,7 +17,7 @@ class JSONEvaluator implements Runnable {
     private static final String detailsLink = "https://maps.googleapis.com/maps/api/place/details/json?";
 //    private RestaurantItem restaurant;
     private ArrayList<RestaurantItem> restaurants;
-    private int radius = 5000;
+    private int radius = 1000;
     private int maxPrice = 5;
     private int minPrice = 0;
     private Location location;
@@ -81,9 +81,9 @@ class JSONEvaluator implements Runnable {
                                 rating = Float.parseFloat(currentLine.substring(startPos, endPos));
                             } else if (currentLine.contains("\"reference\"")) {
                                 startPos = currentLine.indexOf(":") + 3;
-                                endPos = currentLine.indexOf(",")-1;
+                                endPos = currentLine.indexOf(",") - 1;
                                 String reference = currentLine.substring(startPos, endPos);
-                                Log.w("re",reference);
+                                Log.w("re", reference);
                                 website = getWebsite(reference);
                                 break;
                             }
@@ -94,8 +94,12 @@ class JSONEvaluator implements Runnable {
                         Log.w("latitude", String.valueOf(latitude));
                         Log.w("longitude", String.valueOf(longitude));
 
-                        if (name != null && priceLevel != -1 && rating != -1 && latitude != -1 && longitude != -1)
-                            restaurants.add(new RestaurantItem(name, priceLevel, rating, latitude, longitude, website));
+                        if (restaurants.size() < 20) {
+                            if (name != null && priceLevel != -1 && rating != -1 && latitude != -1 && longitude != -1)
+                                restaurants.add(new RestaurantItem(name, priceLevel, rating, latitude, longitude, website));
+                        } else {
+                            return;
+                        }
                     }
                 }
                 Log.v("Size", String.valueOf(restaurants.size()));
@@ -105,17 +109,17 @@ class JSONEvaluator implements Runnable {
                         radius *= 2;
                         continue;
                     }
-//                    restaurants = RestaurantItem.INVALID;
+                    restaurants = new ArrayList<RestaurantItem>();
+                    restaurants.add(RestaurantItem.INVALID);
                     return;
                 }
 //                int randomNumber = (int) (Math.random() * restaurants.size());
 //                restaurant = restaurants.get(randomNumber);
-                return;
             }
         } catch (IOException e) {
             e.printStackTrace();
-//            restaurants = RestaurantItem.INVALID;
-        }
+            restaurants = new ArrayList<RestaurantItem>();
+            restaurants.add(RestaurantItem.INVALID);        }
     }
 
     private String buildURL(Location location) {
@@ -132,7 +136,7 @@ class JSONEvaluator implements Runnable {
     }
 
     void resetAll() {
-        radius = 5000;
+        radius = 1000;
         minPrice = 0;
         maxPrice = 5;
         location = null;

@@ -9,12 +9,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.ayesha.cs3040.CS3040_restaurantApp.explore.ExploreRecyclerAdapter;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 import com.ayesha.cs3040.myapp1.R;
 
@@ -26,6 +26,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 public class SearchActivity extends AppCompatActivity implements Runnable{
 
     private boolean success;
+    private RecyclerView recyclerView;
     private LocationManager locationManager;
     private Location lastLocation;
     private final InfoFinder infoFinder = new InfoFinder();
@@ -53,15 +54,9 @@ public class SearchActivity extends AppCompatActivity implements Runnable{
         if (success) {
             List<RestaurantItem> restaurants = infoFinder.getRestaurants();
             Toast.makeText(this, "getting list of restaurants", Toast.LENGTH_SHORT).show();
-            Log.d("list",restaurants.toString());
+            setView(R.id.restaurant_results_layout);
+            setRestaurantList(restaurants);
 
-//            ExploreRecyclerAdapter mAdapter = new ExploreRecyclerAdapter(this, restaurants);
-//
-//            recyclerView.setAdapter(mAdapter);
-//            recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-//            setView(R.id.restaurant_layout);
-//            setRestaurant(restaurant);
         } else {
 //            setView(R.id.not_connected_layout);
             Toast.makeText(this, "error connecting to db", Toast.LENGTH_SHORT).show();
@@ -108,6 +103,17 @@ public class SearchActivity extends AppCompatActivity implements Runnable{
         } else {
             return locationNet;
         }
+    }
+
+    public void setRestaurantList(List<RestaurantItem> restaurants){
+
+
+            SearchRecyclerAdapter mAdapter = new SearchRecyclerAdapter(this, restaurants);
+
+            recyclerView.setAdapter(mAdapter);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+
     }
 
     public void setSuccess(boolean success) {
