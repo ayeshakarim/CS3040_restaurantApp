@@ -9,15 +9,19 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 import com.ayesha.cs3040.myapp1.R;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -30,6 +34,7 @@ public class SearchActivity extends AppCompatActivity implements Runnable{
     private LocationManager locationManager;
     private Location lastLocation;
     private final InfoFinder infoFinder = new InfoFinder();
+    private List<RestaurantItem> restaurants = new ArrayList<>();
 
 
     @Override
@@ -39,6 +44,8 @@ public class SearchActivity extends AppCompatActivity implements Runnable{
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         setContentView(R.layout.search_layout);
 
+        restaurants = new ArrayList<RestaurantItem>();
+
     }
 
     @SuppressWarnings("unused")
@@ -46,16 +53,31 @@ public class SearchActivity extends AppCompatActivity implements Runnable{
 
         Toast.makeText(this, "button has been clicked", Toast.LENGTH_SHORT).show();
         infoFinder.resetParameters();
+
         findRestaurants();
     }
 
     @Override
     public void run() {
-        if (success) {
-            List<RestaurantItem> restaurants = infoFinder.getRestaurants();
+
+        if (!success) {
+
+            restaurants = infoFinder.getRestaurants();
+            setView(R.id.restaurant_result_layout);
+            recyclerView = (RecyclerView) findViewById(R.id.search_results_rv);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
             Toast.makeText(this, "getting list of restaurants", Toast.LENGTH_SHORT).show();
-            setView(R.id.restaurant_results_layout);
-            setRestaurantList(restaurants);
+            while (restaurants == null || restaurants.size() != 20) {
+                try {
+                    Thread.sleep(0);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+//                wait(100);
+            }
+            setRestaurantList();
+
 
         } else {
 //            setView(R.id.not_connected_layout);
@@ -105,15 +127,15 @@ public class SearchActivity extends AppCompatActivity implements Runnable{
         }
     }
 
-    public void setRestaurantList(List<RestaurantItem> restaurants){
+    public void setRestaurantList(){
 
+        for (RestaurantItem restaurant: restaurants) {
+            Log.d("restaurants", "  " +restaurant.getItem_name() +",  address: " + restaurant.getAddress() + ",  rating: " + restaurant.getRating() + ",  price level: " + restaurant.getPriceLevel() + ",  website: "  + restaurant.getWebsite());
+        }
 
             SearchRecyclerAdapter mAdapter = new SearchRecyclerAdapter(this, restaurants);
-
             recyclerView.setAdapter(mAdapter);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-
     }
 
     public void setSuccess(boolean success) {

@@ -17,7 +17,7 @@ class JSONEvaluator implements Runnable {
     private static final String detailsLink = "https://maps.googleapis.com/maps/api/place/details/json?";
 //    private RestaurantItem restaurant;
     private ArrayList<RestaurantItem> restaurants;
-    private int radius = 1000;
+    private int radius = 5000;
     private int maxPrice = 5;
     private int minPrice = 0;
     private Location location;
@@ -136,14 +136,14 @@ class JSONEvaluator implements Runnable {
     }
 
     void resetAll() {
-        radius = 1000;
+        radius = 5000;
         minPrice = 0;
         maxPrice = 5;
         location = null;
         restaurants = null;
     }
 
-    ArrayList<RestaurantItem> getRestaurants() {
+    public ArrayList<RestaurantItem> getRestaurants() {
         return restaurants;
     }
 

@@ -16,7 +16,7 @@ public class LocationIdentifier {
     private final double longitude;
     private String address;
     private boolean addressFound = true;
-    private static FragmentActivity activity;
+    private static SearchActivity activity;
     private final Location location = new Location("");
 
     public LocationIdentifier(double latitude, double longitude) {

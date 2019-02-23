@@ -47,6 +47,7 @@ public class RestaurantItem implements Serializable {
         this.item_name = name;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.location = new LocationIdentifier(latitude, longitude);
         this.priceLevel = priceLevel;
         this.rating = rating;
         this.website = website;

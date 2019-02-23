@@ -1,6 +1,7 @@
 package com.ayesha.cs3040.CS3040_restaurantApp;
 
 import android.location.Location;
+import android.util.Log;
 
 import com.ayesha.cs3040.CS3040_restaurantApp.explore.ExploreFragment;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
@@ -23,7 +24,7 @@ public class InfoFinder implements Runnable {
         jsonEvaluator.setLocation(location);
         new Thread(jsonEvaluator).start();
         long startTime = System.currentTimeMillis();
-        while (jsonEvaluator.getRestaurants() == null) {
+        while (jsonEvaluator.getRestaurants() == null || jsonEvaluator.getRestaurants().size() != 20) {
             try {
                 Thread.sleep(0);
             } catch (InterruptedException e) {
@@ -32,11 +33,14 @@ public class InfoFinder implements Runnable {
             if (System.currentTimeMillis() - startTime >= 10000) {
                 activity.setSuccess(false);
                 activity.runOnUiThread(activity);
+//                activity.setRestaurantList();
                 return;
             }
         }
-        activity.setSuccess(!getRestaurants().contains(RestaurantItem.INVALID));
+        activity.setSuccess(getRestaurants().contains(RestaurantItem.INVALID));
         activity.runOnUiThread(activity);
+//        activity.setRestaurantList();
+
     }
 
 

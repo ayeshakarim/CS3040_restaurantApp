@@ -54,12 +54,13 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
         holder.address.setText(address);
         holder.website.setText(website);
         holder.rating.setRating(rating);
+        holder.mealPrice.setText("Price: " + price +" / 4");
 
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("restaurant", restaurant);
-        Intent intent = new Intent(mContext, ItemActivity.class);
-        intent.putExtras(bundle);
-        mContext.startActivity(intent);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("restaurant", restaurant);
+//        Intent intent = new Intent(mContext, ItemActivity.class);
+//        intent.putExtras(bundle);
+//        mContext.startActivity(intent);
 
 
     }
