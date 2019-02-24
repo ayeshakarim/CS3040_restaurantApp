@@ -8,10 +8,11 @@ import android.support.v4.app.FragmentActivity;
 import com.ayesha.cs3040.CS3040_restaurantApp.explore.ExploreFragment;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
 
-public class LocationIdentifier {
+public class LocationIdentifier implements Serializable {
     private final double latitude;
     private final double longitude;
     private String address;

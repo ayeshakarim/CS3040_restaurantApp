@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,22 +13,34 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ayesha.cs3040.CS3040_restaurantApp.item.ItemActivity;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 import com.ayesha.cs3040.myapp1.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+
+import static android.provider.Contacts.SettingsColumns.KEY;
 
 public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAdapter.ViewHolder> implements Serializable {
 
     public List<RestaurantItem> restaurant_list;
     private Context mContext;
 
+    private DatabaseReference mDatabase;
+
     public SearchRecyclerAdapter(Context context, List<RestaurantItem> list) {
         this.mContext = context;
         this.restaurant_list = list;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
     }
 
 
@@ -56,13 +69,49 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
         holder.rating.setRating(rating);
         holder.mealPrice.setText("Price: " + price +" / 4");
 
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("restaurant", restaurant);
-//        Intent intent = new Intent(mContext, ItemActivity.class);
-//        intent.putExtras(bundle);
-//        mContext.startActivity(intent);
+//        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Toast.makeText(mContext, restaurant.getItem_name(), Toast.LENGTH_SHORT).show();
+//
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("restaurant", restaurant);
+//                Intent intent = new Intent(mContext, ItemActivity.class);
+//                intent.putExtras(bundle);
+//                mContext.startActivity(intent);
+//
+//            }
+//        });
+
+        holder.bookBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                restaurant_list.get(position).setBooked(true);
+                try {
+                    bookRestaurant(restaurant_list.get(position));
+                    Log.d("write", "writing to database" + restaurant_list.get(position).getItem_name());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
 
+
+    }
+
+    public void bookRestaurant(RestaurantItem restaurant) {
+
+        DatabaseReference newRef = mDatabase.child("Bookings").push();
+        newRef.child("name").setValue(restaurant.getItem_name())
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("fail", "database failed to upload");
+                    }
+                });
     }
 
     @Override

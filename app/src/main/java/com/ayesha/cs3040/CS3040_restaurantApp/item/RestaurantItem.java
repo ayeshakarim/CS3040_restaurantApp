@@ -1,30 +1,49 @@
 package com.ayesha.cs3040.CS3040_restaurantApp.item;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.location.Location;
 import android.support.v4.app.FragmentActivity;
-import android.view.MenuItem;
-
 import com.ayesha.cs3040.CS3040_restaurantApp.LocationIdentifier;
-import com.ayesha.cs3040.CS3040_restaurantApp.MainActivity;
 import com.ayesha.cs3040.CS3040_restaurantApp.SearchActivity;
-import com.ayesha.cs3040.CS3040_restaurantApp.item.FoodItem;
+import com.ayesha.cs3040.CS3040_restaurantApp.review.Review;
 
 import java.io.Serializable;
 import java.util.List;
 
+@Entity
 public class RestaurantItem implements Serializable {
     public LocationIdentifier location;
+
+    @PrimaryKey
+    public String id;
+
+    @ColumnInfo(name = "name")
     public String item_name;
+
+    @ColumnInfo(name = "priceLevel")
     public int priceLevel;
+
+    @ColumnInfo(name = "latitude")
     public double latitude;
+
+    @ColumnInfo(name = "longitude")
     public double longitude;
+
+    @ColumnInfo(name = "rating")
     public float rating;
+
+    @ColumnInfo(name = "website")
     public String website;
+
+    @ColumnInfo(name = "isVisited")
+    public boolean visited;
+
+    public List<Review> reviewList;
     public String item_address;
     public boolean booked;
-    public boolean visited;
-    public boolean reviewed;
-    public List<FoodItem> mealList;
+
 
     public static final RestaurantItem INVALID = new RestaurantItem();
 
@@ -33,7 +52,8 @@ public class RestaurantItem implements Serializable {
 
     }
 
-    public RestaurantItem(String name, int priceLevel, float rating, String address, String website) {
+    public RestaurantItem(String id, String name, int priceLevel, float rating, String address, String website) {
+        this.id = id;
         this.item_name = name;
         this.item_address = address;
         this.priceLevel = priceLevel;
@@ -43,7 +63,8 @@ public class RestaurantItem implements Serializable {
     }
 
 
-    public RestaurantItem(String name, int priceLevel, float rating, double latitude, double longitude, String website) {
+    public RestaurantItem(String id, String name, int priceLevel, float rating, double latitude, double longitude, String website) {
+        this.id = id;
         this.item_name = name;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -57,6 +78,14 @@ public class RestaurantItem implements Serializable {
 
     public static void setSearchActivity(SearchActivity activity) {
         LocationIdentifier.setSearchActivity(activity);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getItem_name() {
@@ -104,6 +133,7 @@ public class RestaurantItem implements Serializable {
 
 
     public  String getAddress() {
+        setItem_address(location.getAddress());
         return location.getAddress();
     }
 
@@ -125,34 +155,39 @@ public class RestaurantItem implements Serializable {
         this.visited = visited;
     }
 
-    public boolean isReviewed() {
-        return reviewed;
-    }
-
-    public void setReviewed(boolean reviewed) {
-        this.reviewed = reviewed;
-    }
+//    public boolean isReviewed() {
+//        return reviewed;
+//    }
+//
+//    public void setReviewed(boolean reviewed) {
+//        this.reviewed = reviewed;
+//    }
 
     public boolean isBooked() {  return booked;  }
 
     public void setBooked(boolean booked) { this.booked = booked; }
 
 
-    public void setMealItem(String name, double price) {
+    public void setReview( float rating, String comment, List<FoodItem> foodItems) {
 
-        FoodItem food_item = new FoodItem (name, price);
-        mealList.add(food_item);
+        Review review = new Review ( rating, comment, this, foodItems);
+        reviewList.add(review);
     }
 
-    public String getMealItemName(int position) {
-        return mealList.get(position).getName();
+//    public String getMealItemName(int position) {
+//        return reviewList.get(position).getName();
+//    }
+//
+//    public double getMealItemPrice(int position) {
+//        return reviewList.get(position).getPrice();
+//    }
+
+    public void setReviews(List<Review> reviews){this.reviewList = reviews;}
+    public List<Review> getReviews() {
+        return reviewList;
     }
 
-    public double getMealItemPrice(int position) {
-        return mealList.get(position).getPrice();
-    }
-
-    public List<FoodItem> getMealList() {
-        return mealList;
+    public int getReviewListSize() {
+        return reviewList.size();
     }
 }

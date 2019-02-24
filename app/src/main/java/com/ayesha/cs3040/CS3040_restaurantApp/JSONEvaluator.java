@@ -37,6 +37,7 @@ class JSONEvaluator implements Runnable {
                 double longitude;
                 double latitude;
                 String name;
+                String id;
                 int priceLevel;
                 float rating;
                 String website = "Website Not Found :(";
@@ -51,6 +52,7 @@ class JSONEvaluator implements Runnable {
                         longitude = -1;
                         latitude = -1;
                         name = null;
+                        id = null;
                         priceLevel = -1;
                         rating = -1;
                         while (scanner.hasNext()) {
@@ -84,6 +86,7 @@ class JSONEvaluator implements Runnable {
                                 endPos = currentLine.indexOf(",") - 1;
                                 String reference = currentLine.substring(startPos, endPos);
                                 Log.w("re", reference);
+                                id = reference;
                                 website = getWebsite(reference);
                                 break;
                             }
@@ -95,8 +98,8 @@ class JSONEvaluator implements Runnable {
                         Log.w("longitude", String.valueOf(longitude));
 
                         if (restaurants.size() < 20) {
-                            if (name != null && priceLevel != -1 && rating != -1 && latitude != -1 && longitude != -1)
-                                restaurants.add(new RestaurantItem(name, priceLevel, rating, latitude, longitude, website));
+                            if ( id != null && name != null && priceLevel != -1 && rating != -1 && latitude != -1 && longitude != -1)
+                                restaurants.add(new RestaurantItem(id, name, priceLevel, rating, latitude, longitude, website));
                         } else {
                             return;
                         }

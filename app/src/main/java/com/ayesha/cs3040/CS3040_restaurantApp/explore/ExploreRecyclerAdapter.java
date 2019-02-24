@@ -66,10 +66,7 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
             public void onClick(View view) {
 
                 Toast.makeText(mContext, item_name, Toast.LENGTH_SHORT).show();
-//
-//                Intent intent = new Intent(mContext, ItemActivity.class);
-//                intent.putExtra("item", item_name);
-//                mContext.startActivity(intent);
+
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("restaurant", restaurant);
                 Intent intent = new Intent(mContext, ItemActivity.class);

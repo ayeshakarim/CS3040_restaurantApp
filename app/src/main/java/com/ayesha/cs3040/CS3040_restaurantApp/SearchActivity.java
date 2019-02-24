@@ -74,7 +74,6 @@ public class SearchActivity extends AppCompatActivity implements Runnable{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-//                wait(100);
             }
             setRestaurantList();
 

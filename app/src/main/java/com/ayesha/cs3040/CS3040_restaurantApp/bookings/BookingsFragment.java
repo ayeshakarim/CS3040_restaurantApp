@@ -42,12 +42,12 @@ public class BookingsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         rv_list = new ArrayList<>();
-        rv_list.add(new RestaurantItem("Resturant 1", 2, 3,"55 Example Lane, Birmingham, B90 23H", "www.example.com"));
-        rv_list.add(new RestaurantItem("Resturant 2", 3, 4, "66 Example Lane, Birmingham, B90 23H", "www.example.com"));
-        rv_list.add(new RestaurantItem("Resturant 3", 1,3, "77 Example Lane, Birmingham, B90 23H", "www.example.com"));
-        rv_list.add(new RestaurantItem("Resturant 4", 3,2, "88 Example Lane, Birmingham, B90 23H", "www.example.com"));
-        rv_list.add(new RestaurantItem("Resturant 5", 4,4, "55 Example Lane, Birmingham, B90 23H", "www.example.com"));
-        rv_list.add(new RestaurantItem("Resturant 6", 3,2, "55 Example Lane, Birmingham, B90 23H", "www.example.com"));
+        rv_list.add(new RestaurantItem("0","Resturant 1", 2, 3,"55 Example Lane, Birmingham, B90 23H", "www.example.com"));
+        rv_list.add(new RestaurantItem("1","Resturant 2", 3, 4, "66 Example Lane, Birmingham, B90 23H", "www.example.com"));
+        rv_list.add(new RestaurantItem("2","Resturant 3", 1,3, "77 Example Lane, Birmingham, B90 23H", "www.example.com"));
+        rv_list.add(new RestaurantItem("3","Resturant 4", 3,2, "88 Example Lane, Birmingham, B90 23H", "www.example.com"));
+        rv_list.add(new RestaurantItem("4","Resturant 5", 4,4, "55 Example Lane, Birmingham, B90 23H", "www.example.com"));
+        rv_list.add(new RestaurantItem("5","Resturant 6", 3,2, "55 Example Lane, Birmingham, B90 23H", "www.example.com"));
 
         BookingsRecyclerAdapter mAdapter = new BookingsRecyclerAdapter(rv_list);
 
