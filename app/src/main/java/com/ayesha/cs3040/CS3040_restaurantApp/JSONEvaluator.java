@@ -99,7 +99,7 @@ class JSONEvaluator implements Runnable {
 
                         if (restaurants.size() < 20) {
                             if ( id != null && name != null && priceLevel != -1 && rating != -1 && latitude != -1 && longitude != -1)
-                                restaurants.add(new RestaurantItem(id, name, priceLevel, rating, latitude, longitude, website));
+                                restaurants.add(new RestaurantItem(id, name, priceLevel, rating, latitude, longitude, website, false));
                         } else {
                             return;
                         }

@@ -41,7 +41,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:layout_marginVertical="15dp"
+        android:layout_marginVertical="25dp"
         android:orientation="vertical"
         android:paddingLeft="10dp"
 
@@ -49,13 +49,12 @@
     <Button
         android:id="@+id/visit_btn"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:text="Add to Visited"
         android:textStyle="bold"
         android:textColor="@android:color/white"
         android:background="@color/colorAccent"
         android:paddingHorizontal="10dp"
-        android:layout_gravity="center"
 
         />
     </LinearLayout>

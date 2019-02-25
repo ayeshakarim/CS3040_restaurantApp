@@ -6,12 +6,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,21 +17,24 @@ import android.widget.Toast;
 import java.io.Serializable;
 import java.util.List;
 
-import com.ayesha.cs3040.CS3040_restaurantApp.MainActivity;
-import com.ayesha.cs3040.CS3040_restaurantApp.item.FoodItem;
+import com.ayesha.cs3040.CS3040_restaurantApp.RestaurantDAO;
+import com.ayesha.cs3040.CS3040_restaurantApp.RestaurantDatabase;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.ItemActivity;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
-import com.ayesha.cs3040.CS3040_restaurantApp.profile.ProfileActivity;
 import com.ayesha.cs3040.myapp1.R;
 
 public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecyclerAdapter.ViewHolder> implements Serializable {
 
     public List<RestaurantItem> home_list;
     private Context mContext;
+    private RestaurantDAO restaurantDAO;
+
 
     public ExploreRecyclerAdapter(Context context, List<RestaurantItem> list) {
         this.mContext = context;
         this.home_list = list;
+        RestaurantDatabase db = RestaurantDatabase.getInMemoryDatabase(context);
+        restaurantDAO  = db.getRestaurantDao();
     }
 
     @NonNull
@@ -46,20 +47,14 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
 
     @Override
     public void onBindViewHolder(@NonNull ExploreRecyclerAdapter.ViewHolder holder, final int position) {
-//        final int id = home_list.get(position).getId();
-        final String item_name = home_list.get(position).getItem_name();
+        final String item_name = home_list.get(position).getName();
         String item_address = home_list.get(position).getItem_address();
-//        List<FoodItem> meal_List = home_list.get(position).getMealList();
-//        for (FoodItem item : meal_List){
-//           String meal_item_name = item.getName();
-//        }
 
        final RestaurantItem restaurant =  home_list.get(position);
 
         holder.name.setText(item_name);
-//        holder.image.setImageResource(id);
         holder.address.setText(item_address);
-//        holder.mealName.setText((meal_item));
+//      holder.image.setImageResource(id);
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,14 +71,14 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
             }
         });
 
-        holder.bookBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                home_list.get(position).setBooked(true);
-
-            }
-        });
+//        holder.bookBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                home_list.get(position).setBooked(true);
+//
+//            }
+//        });
 
         if (home_list.get(position).isBooked()) {
             holder.bookBtn.setEnabled(false);
