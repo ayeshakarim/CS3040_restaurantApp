@@ -16,7 +16,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 public class FoodItem implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private String foodId;
+    private int foodId;
 
     @ColumnInfo(name = "foodItem")
     private String name;
@@ -25,7 +25,7 @@ public class FoodItem implements Serializable {
     private double price;
 
     @ColumnInfo
-    private String reviewId;
+    private int reviewId;
 
 //    public static final String[] COURSE_OPTIONS =  {"Starter", "Main", "Dessert", "Appetizer", "Side"};
 
@@ -35,9 +35,10 @@ public class FoodItem implements Serializable {
 
     }
 
-    public String getFoodId() { return foodId; }
 
-    public void setFoodId(String foodId) { this.foodId = foodId; }
+    public int getFoodId() { return foodId; }
+
+    public void setFoodId(int foodId) { this.foodId = foodId; }
 
     public String getName() {
         return name;
@@ -53,6 +54,14 @@ public class FoodItem implements Serializable {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public int getReviewId() {
+        return reviewId;
+    }
+
+    public void setReviewId(int reviewId) {
+        this.reviewId = reviewId;
     }
 
 }

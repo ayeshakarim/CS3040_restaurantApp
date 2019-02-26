@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.ayesha.cs3040.CS3040_restaurantApp.explore.ExploreRecyclerAdapter;
 import com.ayesha.cs3040.myapp1.R;
 import com.ayesha.cs3040.CS3040_restaurantApp.profile.ProfileActivity;
 
@@ -50,7 +49,7 @@ public class ItemActivity extends AppCompatActivity implements Serializable {
             Bundle bundle = getIntent().getExtras();
             if(bundle!=null) {
                 item = (RestaurantItem) bundle.getSerializable("restaurant");
-                String item_name = item.getItem_name();
+                String item_name = item.getName();
                 String address = item.getItem_address();
                 String website = item.getWebsite();
                 float rating = item.getRating();

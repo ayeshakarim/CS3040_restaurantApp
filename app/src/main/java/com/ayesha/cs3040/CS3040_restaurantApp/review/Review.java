@@ -4,6 +4,7 @@ package com.ayesha.cs3040.CS3040_restaurantApp.review;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import com.ayesha.cs3040.CS3040_restaurantApp.item.FoodItem;
@@ -17,37 +18,37 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 public class Review {
 
     @PrimaryKey(autoGenerate = true)
-    private String id;
+    private int id;
 
-    @ColumnInfo
     private float rating;
 
-    @ColumnInfo
     private String comment;
 
-    @ColumnInfo
     private String restaurantId;
 
 
+    @Ignore
     private RestaurantItem item;
+    @Ignore
     private List<FoodItem> foodItems;
 
+    @Ignore
     public Review() {
     }
 
-    public Review( float rating, String comment, RestaurantItem item, List<FoodItem> foodItems) {
+    public Review( float rating, String comment, String restaurantId) {
         this.rating = rating;
         this.comment = comment;
-        this.item = item;
-        this.foodItems = foodItems;
-        this.restaurantId = item.getId();
+//        this.item = item;
+//        this.foodItems = foodItems;
+        this.restaurantId = restaurantId;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -67,6 +68,10 @@ public class Review {
         this.comment = comment;
     }
 
+    public String getRestaurantId() { return restaurantId; }
+
+    public void setRestaurantId(String restaurantId) { this.restaurantId = restaurantId; }
+
     public RestaurantItem getItem() {
         return item;
     }
@@ -79,11 +84,10 @@ public class Review {
         this.foodItems.add(foodItem);
     }
 
-    public List<FoodItem> getFoodItems() {
-        return foodItems;
-    }
+    public List<FoodItem> getFoodItems() { return foodItems; }
 
     public void setFoodItems(List<FoodItem> foodItems) {
         this.foodItems = foodItems;
     }
 }
+

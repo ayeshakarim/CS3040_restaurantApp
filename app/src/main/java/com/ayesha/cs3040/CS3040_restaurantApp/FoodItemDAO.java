@@ -24,8 +24,8 @@ public interface FoodItemDAO {
     void delete(FoodItem... items);
 
     @Query("SELECT * FROM fooditem")
-    List<Review> getAllItems();
+    List<FoodItem> getAllItems();
 
     @Query("SELECT * FROM fooditem WHERE reviewId=:reviewId")
-    List<Review> findFoodItemsForReview(final int reviewId);
+    List<FoodItem> findFoodItemsForReview(final int reviewId);
 }

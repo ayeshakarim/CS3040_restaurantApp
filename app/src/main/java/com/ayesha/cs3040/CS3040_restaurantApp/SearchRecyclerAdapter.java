@@ -1,8 +1,7 @@
 package com.ayesha.cs3040.CS3040_restaurantApp;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,31 +14,27 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ayesha.cs3040.CS3040_restaurantApp.item.ItemActivity;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 import com.ayesha.cs3040.myapp1.R;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.IOException;
 import java.io.Serializable;
+import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.List;
-
-import static android.provider.Contacts.SettingsColumns.KEY;
 
 public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAdapter.ViewHolder> implements Serializable {
 
     public List<RestaurantItem> restaurant_list;
     private Context mContext;
 
-    private DatabaseReference mDatabase;
+    private RestaurantDAO restaurantDAO;
+
 
     public SearchRecyclerAdapter(Context context, List<RestaurantItem> list) {
         this.mContext = context;
         this.restaurant_list = list;
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        RestaurantDatabase db = RestaurantDatabase.getInMemoryDatabase(context);
+        restaurantDAO  = db.getRestaurantDao();
 
     }
 
@@ -55,13 +50,12 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
     @Override
     public void onBindViewHolder(@NonNull SearchRecyclerAdapter.ViewHolder holder, final int position) {
 
-        String name = restaurant_list.get(position).getItem_name();
+        String name = restaurant_list.get(position).getName();
         String address = restaurant_list.get(position).getAddress();
         String website = restaurant_list.get(position).getWebsite();
         float rating = restaurant_list.get(position).getRating();
         int price = restaurant_list.get(position).getPriceLevel();
 
-        final RestaurantItem restaurant =  restaurant_list.get(position);
 
         holder.name.setText(name);
         holder.address.setText(address);
@@ -73,7 +67,7 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
 //            @Override
 //            public void onClick(View view) {
 //
-//                Toast.makeText(mContext, restaurant.getItem_name(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, restaurant.getName(), Toast.LENGTH_SHORT).show();
 //
 //                Bundle bundle = new Bundle();
 //                bundle.putSerializable("restaurant", restaurant);
@@ -88,10 +82,10 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
             @Override
             public void onClick(View view) {
 
-//                restaurant_list.get(position).setBooked(true);
                 try {
                     bookRestaurant(restaurant_list.get(position));
-                    Log.d("write", "writing to database" + restaurant_list.get(position).getItem_name());
+                    Toast.makeText(mContext, "booking " + restaurant_list.get(position).name, Toast.LENGTH_SHORT).show();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -102,16 +96,27 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
 
     }
 
-    public void bookRestaurant(RestaurantItem restaurant) {
+    public void bookRestaurant(final RestaurantItem restaurant) {
 
-        DatabaseReference newRef = mDatabase.child("Bookings").push();
-        newRef.child("name").setValue(restaurant.getItem_name())
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("fail", "database failed to upload");
-                    }
-                });
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                restaurantDAO.insert(restaurant);
+                restaurantDAO.setAddress(restaurant.getAddress());
+                restaurantDAO.updateBookingDate(new Date());
+
+                for (RestaurantItem r: restaurantDAO.getAll()) {
+                    Log.d("database id", r.id );
+                    Log.d("database name", r.name);
+                    Log.d("database address", r.address);
+                    Log.d("database date", r.dateBooked + "");
+
+
+
+                }
+                return null;
+            }
+        }.execute();
     }
 
     @Override

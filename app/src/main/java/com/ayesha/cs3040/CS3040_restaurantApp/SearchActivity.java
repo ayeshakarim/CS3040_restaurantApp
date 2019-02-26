@@ -14,13 +14,11 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 import com.ayesha.cs3040.myapp1.R;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,7 +127,7 @@ public class SearchActivity extends AppCompatActivity implements Runnable{
     public void setRestaurantList(){
 
         for (RestaurantItem restaurant: restaurants) {
-            Log.d("restaurants", "  " +restaurant.getItem_name() +",  address: " + restaurant.getAddress() + ",  rating: " + restaurant.getRating() + ",  price level: " + restaurant.getPriceLevel() + ",  website: "  + restaurant.getWebsite());
+            Log.d("restaurants", "  " +restaurant.getName() +",  address: " + restaurant.getAddress() + ",  rating: " + restaurant.getRating() + ",  price level: " + restaurant.getPriceLevel() + ",  website: "  + restaurant.getWebsite());
         }
 
             SearchRecyclerAdapter mAdapter = new SearchRecyclerAdapter(this, restaurants);
