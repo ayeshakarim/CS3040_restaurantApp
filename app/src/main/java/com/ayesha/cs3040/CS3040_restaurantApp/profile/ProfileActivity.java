@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.ayesha.cs3040.CS3040_restaurantApp.review.AddFoodFragment;
 import com.ayesha.cs3040.CS3040_restaurantApp.review.WriteReviewFragment;
 import com.ayesha.cs3040.myapp1.R;
 
@@ -13,6 +14,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     final Fragment personalInfoFragment = new PersonalInfoFragment();
     final Fragment writeReviewFragment = new WriteReviewFragment();
+    final Fragment addFoodFragment = new AddFoodFragment();
     final FragmentManager fm = getSupportFragmentManager();
 
     @Override
@@ -37,6 +39,9 @@ public class ProfileActivity extends AppCompatActivity {
                     break;
                 case 2:
                     fm.beginTransaction().replace(R.id.profile_container, writeReviewFragment).commit();
+                    break;
+                case 3:
+                    fm.beginTransaction().replace(R.id.profile_container, addFoodFragment).commit();
                     break;
             }
         }

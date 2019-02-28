@@ -10,12 +10,13 @@ import android.arch.persistence.room.PrimaryKey;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.FoodItem;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 
+import java.io.Serializable;
 import java.util.List;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @Entity(foreignKeys = @ForeignKey(entity = RestaurantItem.class, parentColumns = "id", childColumns = "restaurantId", onDelete = CASCADE))
-public class Review {
+public class Review implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;

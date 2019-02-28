@@ -2,6 +2,7 @@ package com.ayesha.cs3040.CS3040_restaurantApp;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;

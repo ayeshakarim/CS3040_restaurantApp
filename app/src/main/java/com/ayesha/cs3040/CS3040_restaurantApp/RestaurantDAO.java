@@ -23,8 +23,8 @@ public interface RestaurantDAO {
     @Query("SELECT * FROM bookings WHERE isVisited LIKE :visited")
     List<RestaurantItem> findBookingsVisited(boolean visited);
 
-    @Query("UPDATE bookings SET isVisited = :visited")
-    void updateVisited(boolean visited);
+    @Query("UPDATE bookings SET isVisited = :visited WHERE id = :rId")
+    void updateVisited(String rId, boolean visited);
 
     @Query("UPDATE bookings SET address = :address")
     void setAddress(String address);

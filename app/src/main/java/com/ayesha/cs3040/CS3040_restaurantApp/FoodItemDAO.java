@@ -27,5 +27,5 @@ public interface FoodItemDAO {
     List<FoodItem> getAllItems();
 
     @Query("SELECT * FROM fooditem WHERE reviewId=:reviewId")
-    List<FoodItem> findFoodItemsForReview(final int reviewId);
+    List<FoodItem> getFoodForReview(final int reviewId);
 }

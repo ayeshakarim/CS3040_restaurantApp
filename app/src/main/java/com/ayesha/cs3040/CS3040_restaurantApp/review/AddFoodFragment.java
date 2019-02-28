@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ayesha.cs3040.CS3040_restaurantApp.FoodItemDAO;
+import com.ayesha.cs3040.CS3040_restaurantApp.RestaurantDatabase;
+import com.ayesha.cs3040.CS3040_restaurantApp.item.FoodItem;
+import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 import com.ayesha.cs3040.myapp1.R;
 
 
@@ -23,6 +28,11 @@ public class AddFoodFragment extends Fragment {
 //    final Fragment reviewFragment = new WriteReviewFragment();
     public EditText name;
     public EditText price;
+    public FoodItem foodItem;
+    public Review review;
+
+    private FoodItemDAO foodDAO;
+    final WriteReviewFragment reviewFragment = new WriteReviewFragment();
 
     public AddFoodFragment() {
         // Required empty public constructor
@@ -34,12 +44,17 @@ public class AddFoodFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_food, container, false);
 
-        Spinner spinner = view.findViewById(R.id.food_course_spinner);
+        RestaurantDatabase db = RestaurantDatabase.getInMemoryDatabase(getContext());
+        foodDAO  = db.getFoodItemDao();
+        getIncomingInfo();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, COURSE_OPTIONS);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(mListener);
+
+//        Spinner spinner = view.findViewById(R.id.food_course_spinner);
+
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, COURSE_OPTIONS);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinner.setAdapter(adapter);
+//        spinner.setOnItemSelectedListener(mListener);
 
         view.findViewById(R.id.food_item_submit).setOnClickListener(mListener1);
         view.findViewById(R.id.add_food_back_btn).setOnClickListener(mListener1);
@@ -59,7 +74,15 @@ public class AddFoodFragment extends Fragment {
             switch (view.getId()) {
                 case R.id.food_item_submit:
                     Toast.makeText(getContext(), "Submit Button Clicked", Toast.LENGTH_SHORT).show();
-//                    replaceFragment(reviewFragment);
+
+                    float priceAsFloat = Float.valueOf(price.getText().toString());
+
+                    foodItem.setName(name.getText().toString());
+                    foodItem.setPrice(priceAsFloat);
+                    foodItem.setReviewId(review.getId());
+
+                    createFoodItem();
+                    replaceFragment(reviewFragment);
 
                 break;
                 case R.id.add_food_back_btn:
@@ -70,44 +93,87 @@ public class AddFoodFragment extends Fragment {
         }
     };
 
+
+    public void createFoodItem(){
+
+        foodDAO.insert(foodItem);
+
+
+        for (FoodItem r: foodDAO.getAllItems()) {
+            Log.d("database id", r.getFoodId() + "");
+            Log.d("database food", r.getName());
+            Log.d("database price", r.getPrice() + "");
+            Log.d("database reviewId", r.getReviewId() + "");
+        }
+    }
+
+    private void getIncomingInfo(){
+
+            Bundle bundle = getArguments();
+            if(bundle!=null) {
+                review = (Review) bundle.getSerializable("review");
+            }
+            else {
+                Log.e("null", "parent review not found");
+            }
+
+        if(getActivity().getIntent().hasExtra("restaurant")){
+
+            Bundle bundle2 = getActivity().getIntent().getExtras();
+            if(bundle2!=null) {
+                review = (Review) bundle2.getSerializable("restaurant");
+            }
+            else {
+                Log.e("null", "parent restaurant not found");
+            }
+        }
+    }
+
+
     public void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_container, fragment);
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("foodItem", foodItem);
+        fragment.setArguments(bundle);
+
+        transaction.replace(R.id.profile_container, fragment);
         transaction.commit();
+
     }
 
 
 
-    private final AdapterView.OnItemSelectedListener mListener = (new AdapterView.OnItemSelectedListener() {
-
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            switch (position) {
-                case 0:
-                    Toast.makeText(getContext(), "Option 1 Clicked", Toast.LENGTH_SHORT).show();
-                    break;
-                case 1:
-                    Toast.makeText(getContext(), "Option 2 Clicked", Toast.LENGTH_SHORT).show();
-                    break;
-                case 2:
-                    Toast.makeText(getContext(), "Option 3 Clicked", Toast.LENGTH_SHORT).show();
-                    break;
-                case 3:
-                    Toast.makeText(getContext(), "Option 4 Clicked", Toast.LENGTH_SHORT).show();
-                    break;
-                case 4:
-                    Toast.makeText(getContext(), "Option 5 Clicked", Toast.LENGTH_SHORT).show();
-                    break;
-
-            }
-
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-            // TODO Auto-generated method stub
-        }
-    });
+//    private final AdapterView.OnItemSelectedListener mListener = (new AdapterView.OnItemSelectedListener() {
+//
+//        @Override
+//        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//            switch (position) {
+//                case 0:
+//                    Toast.makeText(getContext(), "Option 1 Clicked", Toast.LENGTH_SHORT).show();
+//                    break;
+//                case 1:
+//                    Toast.makeText(getContext(), "Option 2 Clicked", Toast.LENGTH_SHORT).show();
+//                    break;
+//                case 2:
+//                    Toast.makeText(getContext(), "Option 3 Clicked", Toast.LENGTH_SHORT).show();
+//                    break;
+//                case 3:
+//                    Toast.makeText(getContext(), "Option 4 Clicked", Toast.LENGTH_SHORT).show();
+//                    break;
+//                case 4:
+//                    Toast.makeText(getContext(), "Option 5 Clicked", Toast.LENGTH_SHORT).show();
+//                    break;
+//
+//            }
+//
+//        }
+//
+//        @Override
+//        public void onNothingSelected(AdapterView<?> parent) {
+//            // TODO Auto-generated method stub
+//        }
+//    });
 
 }

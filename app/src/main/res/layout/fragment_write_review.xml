@@ -39,6 +39,7 @@
             android:layout_marginTop="12dp"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/review_restaurant_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Restaurant Name"
@@ -47,6 +48,7 @@
                 android:textStyle="bold"
                 android:gravity="center"/>
             <TextView
+                android:id="@+id/review_restaurant_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="55 Example Drive, B99 12H"
@@ -84,15 +86,14 @@
                 android:id="@+id/review_comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="100dp"
                 android:layout_margin="10dp"
-                android:padding="5dp"
-                android:hint="write your comment here..."
-                android:gravity="top"
-                android:inputType="textCapSentences|textMultiLine"
-                android:textSize="15dp"
                 android:background="@drawable/bg_edit_text"
-                />
+                android:gravity="top"
+                android:hint="write your comment here..."
+                android:inputType="textCapSentences|textMultiLine"
+                android:minHeight="100dp"
+                android:padding="5dp"
+                android:textSize="15dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -106,7 +107,9 @@
                 />
             <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+            android:layout_height="wrap_content"
+            android:id="@+id/food_item_rv">
+            </android.support.v7.widget.RecyclerView>
             <LinearLayout
                 android:id="@+id/add_food_item"
                 android:layout_width="match_parent"

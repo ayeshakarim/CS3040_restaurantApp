@@ -43,7 +43,6 @@ public class ExploreFragment extends Fragment implements View.OnClickListener{
 
     private List<RestaurantItem> rv_list;
     private RecyclerView recyclerView;
-    private List<FoodItem> mealList;
     private FloatingActionButton mapBtn;
 
     private RestaurantDAO restaurantDAO;

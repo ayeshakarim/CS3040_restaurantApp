@@ -17,7 +17,7 @@ import java.io.Serializable;
 
 public class ItemActivity extends AppCompatActivity implements Serializable {
 
-    public RestaurantItem item;
+    public RestaurantItem restaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,7 @@ public class ItemActivity extends AppCompatActivity implements Serializable {
         writeReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 openSection(2);
             }
         });
@@ -48,11 +49,11 @@ public class ItemActivity extends AppCompatActivity implements Serializable {
 
             Bundle bundle = getIntent().getExtras();
             if(bundle!=null) {
-                item = (RestaurantItem) bundle.getSerializable("restaurant");
-                String item_name = item.getName();
-                String address = item.getItem_address();
-                String website = item.getWebsite();
-                float rating = item.getRating();
+                restaurant = (RestaurantItem) bundle.getSerializable("restaurant");
+                String item_name = restaurant.getName();
+                String address = restaurant.getItem_address();
+                String website = restaurant.getWebsite();
+                float rating = restaurant.getRating();
 
                 setParams(item_name, address, rating, website);
 
@@ -81,8 +82,13 @@ public class ItemActivity extends AppCompatActivity implements Serializable {
 
 
     public void openSection(int value){
-        Intent i = new Intent(this, ProfileActivity.class);
-        i.putExtra("section_name", value );
-        startActivity(i);
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("restaurant", restaurant);
+        Intent intent = new Intent(this , ProfileActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        intent.putExtra("section_name", value );
+        startActivity(intent);
     }
 }

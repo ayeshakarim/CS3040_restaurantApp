@@ -1,62 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:layout_marginRight="5dp"
-    android:orientation="horizontal">
-
-    <LinearLayout
-        android:layout_width="250dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginRight="5dp"
-        android:layout_marginStart="10dp">
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="15dp"
+    android:layout_marginRight="10dp">
 
         <TextView
             android:id="@+id/booking_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:text="Restaurant Name"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginStart="5dp"/>
+
+
+            <ImageView
+                android:id="@+id/visit_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="40dp"
+                android:src="@drawable/ic_check_black_24dp"
+                android:tint="@color/colorAccent"
+                android:textStyle="bold"
+                android:paddingHorizontal="10dp"
+                />
+
+        <ImageView
+            android:id="@+id/booking_deleteBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_delete_black_24dp"
+            android:tint="@color/colorPrimary"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"/>
+
+    <LinearLayout
+        android:id="@+id/booking_date_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/booking_name"
+        android:layout_marginVertical="5dp"
+        android:layout_marginStart="5dp"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_access_time_black_24dp"
+            android:tint="@color/colorPrimary"/>
+        <TextView
+            android:id="@+id/booking_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="2dp"
+            android:layout_marginStart="10dp"
+            android:text="20-04-2019, 10.00am"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/booking_address_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/booking_date_container"
+        android:layout_marginVertical="2dp"
+        android:layout_marginStart="5dp"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_location_on_black_24dp"
+            android:tint="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/booking_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="22 Example Lane, Birmingham, B91 HYS" />
-
-        <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/item_tags_hzv"-->
-        <!--android:orientation="horizontal"></android.support.v7.widget.RecyclerView>-->
-
-
+            android:layout_marginStart="10dp"
+            android:text="22 Example Lane, Birmingham, B91 HYS"
+            android:layout_below="@+id/booking_date_container"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_marginVertical="25dp"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-
-        >
-    <Button
-        android:id="@+id/visit_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:text="Add to Visited"
-        android:textStyle="bold"
-        android:textColor="@android:color/white"
-        android:background="@color/colorAccent"
-        android:paddingHorizontal="10dp"
-
-        />
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>
