@@ -215,7 +215,7 @@ public class WriteReviewFragment extends Fragment{
     }
 
 
-    private void setParams( RestaurantItem restaurant){
+    private void setParams(RestaurantItem restaurant){
 
 //        String item_name = restaurant.getName();
 //        String address = restaurant.getItem_address();

@@ -87,7 +87,6 @@ public class ItemActivity extends AppCompatActivity implements Serializable {
         bundle.putSerializable("restaurant", restaurant);
         Intent intent = new Intent(this , ProfileActivity.class);
         intent.putExtras(bundle);
-        startActivity(intent);
         intent.putExtra("section_name", value );
         startActivity(intent);
     }

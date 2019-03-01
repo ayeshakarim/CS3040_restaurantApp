@@ -106,15 +106,15 @@ class JSONEvaluator implements Runnable {
                     }
                 }
                 Log.v("Size", String.valueOf(restaurants.size()));
-                if (restaurants.size() == 0) {
-                    if (radiusLowered) {
-                        radiusLowered = false;
+                if (restaurants.size() != 20) {
+//                    if (radiusLowered) {
+//                        radiusLowered = false;
                         radius *= 2;
                         continue;
-                    }
-                    restaurants = new ArrayList<RestaurantItem>();
-                    restaurants.add(RestaurantItem.INVALID);
-                    return;
+//                    }
+//                    restaurants = new ArrayList<RestaurantItem>();
+//                    restaurants.add(RestaurantItem.INVALID);
+//                    return;
                 }
 //                int randomNumber = (int) (Math.random() * restaurants.size());
 //                restaurant = restaurants.get(randomNumber);

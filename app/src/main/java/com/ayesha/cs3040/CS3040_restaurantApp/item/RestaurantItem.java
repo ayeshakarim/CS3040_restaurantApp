@@ -5,6 +5,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.location.Location;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import com.ayesha.cs3040.CS3040_restaurantApp.LocationIdentifier;
@@ -211,4 +213,5 @@ public class RestaurantItem implements Serializable {
     public int getReviewListSize() {
         return reviewList.size();
     }
+
 }

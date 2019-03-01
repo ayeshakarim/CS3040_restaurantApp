@@ -76,7 +76,6 @@ public class BookingsFragment extends Fragment {
                 @Override
                 protected Void doInBackground(Void... voids) {
                     rv_list = restaurantDAO.findBookingsVisited(false);
-                    Looper.prepare();
                     for (RestaurantItem r: restaurantDAO.findBookingsVisited(false)) {
                         Log.d("database id", r.id );
                         Log.d("database name", r.getName());
