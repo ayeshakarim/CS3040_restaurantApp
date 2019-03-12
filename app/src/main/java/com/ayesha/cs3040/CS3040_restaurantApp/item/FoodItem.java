@@ -3,7 +3,9 @@ package com.ayesha.cs3040.CS3040_restaurantApp.item;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import com.ayesha.cs3040.CS3040_restaurantApp.review.Review;
 
@@ -16,14 +18,17 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 public class FoodItem implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private int foodId;
+    private int foodId = 0;
 
     @ColumnInfo(name = "foodItem")
+    @NonNull
     private String name;
 
+    @NonNull
     @ColumnInfo(name = "foodPrice")
     private double price;
 
+    @NonNull
     @ColumnInfo
     private int reviewId;
 
@@ -33,6 +38,12 @@ public class FoodItem implements Serializable {
         this.name = name;
         this.price = price;
 
+    }
+
+    @Ignore
+    public FoodItem(int id) {
+
+        this.reviewId = id;
     }
 
 

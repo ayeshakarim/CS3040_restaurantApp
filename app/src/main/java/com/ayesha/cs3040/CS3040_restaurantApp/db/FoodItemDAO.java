@@ -1,4 +1,4 @@
-package com.ayesha.cs3040.CS3040_restaurantApp;
+package com.ayesha.cs3040.CS3040_restaurantApp.db;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;

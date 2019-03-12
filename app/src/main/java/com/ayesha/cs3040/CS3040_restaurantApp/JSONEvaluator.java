@@ -8,6 +8,7 @@ import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 class JSONEvaluator implements Runnable {
@@ -15,23 +16,40 @@ class JSONEvaluator implements Runnable {
     private static final String key = "AIzaSyBTdkNaGmixwDAj0eYZl0z-Gq9lCvo0bF8";
     private static final String link = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?";
     private static final String detailsLink = "https://maps.googleapis.com/maps/api/place/details/json?";
-//    private RestaurantItem restaurant;
+    //    private RestaurantItem restaurant;
     private ArrayList<RestaurantItem> restaurants;
     private int radius = 1000;
     private int maxPrice = 5;
     private int minPrice = 0;
     private Location location;
-    private boolean radiusLowered = false;
+    private String keyword;
+    private URL url;
+    private static int size;
 
     void setLocation(Location location) {
         this.location = location;
     }
 
+    void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+
+    static int getSize() { return size;}
+
     public void run() {
         try {
             for (int i=0; i < 2; i++) {
-                Log.w("url", buildURL(location));
-                URL url = new URL(buildURL(location));
+
+                Log.w("iiiii", i + "");
+
+                if( keyword == null) {
+                Log.w("url", buildURL(location, false));
+                url = new URL(buildURL(location, false));}
+                else {
+                    radius = 10000;
+                    if(i == 1){ radius = 50000; }
+                    Log.w("url", buildURL(location, true));
+                    url = new URL(buildURL(location, true));}
                 Scanner scanner = new Scanner(url.openConnection().getInputStream());
                 restaurants = new ArrayList<>();
                 double longitude;
@@ -92,32 +110,32 @@ class JSONEvaluator implements Runnable {
                             }
                         }
                         Log.w("name", name);
-                        Log.w("priceLevel", String.valueOf(priceLevel));
-                        Log.w("rating", String.valueOf(rating));
-                        Log.w("latitude", String.valueOf(latitude));
-                        Log.w("longitude", String.valueOf(longitude));
 
-                        if (restaurants.size() < 20) {
-                            if ( id != null && name != null && priceLevel != -1 && rating != -1 && latitude != -1 && longitude != -1)
-                                restaurants.add(new RestaurantItem(id, name, priceLevel, rating, latitude, longitude, website, false));
-                        } else {
-                            return;
-                        }
+                            if (restaurants.size() < 20) {
+                                if (id != null && name != null && priceLevel != -1 && rating != -1 && latitude != -1 && longitude != -1) {
+                                    restaurants.add(new RestaurantItem(id, name, priceLevel, rating, latitude, longitude, website, false));
+//                            Log.v("Size", String.valueOf(restaurants.size()));
+                                }
+                            } else {
+                                return;
+                            }
+//                        }
                     }
                 }
                 Log.v("Size", String.valueOf(restaurants.size()));
-                if (restaurants.size() != 20) {
-//                    if (radiusLowered) {
-//                        radiusLowered = false;
+                size = restaurants.size();
+
+                if( i != 1) {
+                    if (restaurants.size() != 20) {
                         radius *= 2;
                         continue;
-//                    }
-//                    restaurants = new ArrayList<RestaurantItem>();
-//                    restaurants.add(RestaurantItem.INVALID);
-//                    return;
+                    }
                 }
-//                int randomNumber = (int) (Math.random() * restaurants.size());
-//                restaurant = restaurants.get(randomNumber);
+//                }
+                ArrayList<RestaurantItem> oldList = restaurants;
+                restaurants = new ArrayList<>();
+                restaurants = oldList;
+                return;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -125,17 +143,29 @@ class JSONEvaluator implements Runnable {
             restaurants.add(RestaurantItem.INVALID);        }
     }
 
-    private String buildURL(Location location) {
-        return link + "key=" + key
-                + "&radius=" + radius
-                + "&maxprice=" + maxPrice
-                + "&minprice=" + minPrice
-                + "&type=restaurant"
-                + "&location="
-                + location.getLatitude()
-                + "," + location.getLongitude();
+    private String buildURL(Location location, boolean hasKeyword) {
 
-
+        if(hasKeyword){
+            return link + "key=" + key
+                    + "&radius=" + radius
+                    + "&keyword=" + keyword
+                    + "&maxprice=" + maxPrice
+                    + "&minprice=" + minPrice
+                    + "&type=restaurant"
+                    + "&location="
+                    + location.getLatitude()
+                    + "," + location.getLongitude();
+        }
+        else {
+            return link + "key=" + key
+                    + "&radius=" + radius
+                    + "&maxprice=" + maxPrice
+                    + "&minprice=" + minPrice
+                    + "&type=restaurant"
+                    + "&location="
+                    + location.getLatitude()
+                    + "," + location.getLongitude();
+        }
     }
 
     void resetAll() {
@@ -148,21 +178,6 @@ class JSONEvaluator implements Runnable {
 
     public ArrayList<RestaurantItem> getRestaurants() {
         return restaurants;
-    }
-
-    void raisePrice() {
-        minPrice= Math.min(4,++minPrice);
-        maxPrice= Math.min(4,++maxPrice);
-    }
-
-    void lowerPrice() {
-        minPrice= Math.max(1,--minPrice);
-        maxPrice= Math.max(1,--maxPrice);
-    }
-
-    void lowerRadius() {
-        radius /= 2;
-        radiusLowered = true;
     }
 
     private String getWebsite(String reference) {

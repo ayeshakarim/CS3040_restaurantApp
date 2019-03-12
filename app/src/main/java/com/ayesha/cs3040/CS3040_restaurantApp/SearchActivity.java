@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -20,6 +21,7 @@ import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 import com.ayesha.cs3040.myapp1.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -31,6 +33,7 @@ public class SearchActivity extends AppCompatActivity implements Runnable{
     private RecyclerView recyclerView;
     private LocationManager locationManager;
     private Location lastLocation;
+    private String keyword;
     private final InfoFinder infoFinder = new InfoFinder();
     private List<RestaurantItem> restaurants = new ArrayList<>();
 
@@ -42,7 +45,30 @@ public class SearchActivity extends AppCompatActivity implements Runnable{
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         setContentView(R.layout.search_layout);
 
-        restaurants = new ArrayList<RestaurantItem>();
+        final SearchView search = (SearchView) findViewById(R.id.keyword_search_bar);
+        search.setQueryHint("search cuisine or style");
+        search.setIconified(false);
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.e("onQueryTextChange", "called");
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                keyword = search.getQuery().toString();
+                Log.d("keyword", keyword);
+
+                infoFinder.resetParameters();
+                findRestaurants();
+                return false;
+            }
+
+        });
+
+        restaurants = new ArrayList<>();
 
     }
 
@@ -77,7 +103,6 @@ public class SearchActivity extends AppCompatActivity implements Runnable{
 
 
         } else {
-//            setView(R.id.not_connected_layout);
             Toast.makeText(this, "error connecting to db", Toast.LENGTH_SHORT).show();
         }
     }
@@ -92,6 +117,7 @@ public class SearchActivity extends AppCompatActivity implements Runnable{
         setView(R.id.loading_layout);
         RestaurantItem.setSearchActivity(this);
         infoFinder.setMainAndLocation(this, lastLocation);
+        infoFinder.setKeyword(keyword);
         new Thread(infoFinder).start();
     }
 
@@ -130,7 +156,9 @@ public class SearchActivity extends AppCompatActivity implements Runnable{
             Log.d("restaurants", "  " +restaurant.getName() +",  address: " + restaurant.getAddress() + ",  rating: " + restaurant.getRating() + ",  price level: " + restaurant.getPriceLevel() + ",  website: "  + restaurant.getWebsite());
         }
 
-            SearchRecyclerAdapter mAdapter = new SearchRecyclerAdapter(this, restaurants);
+        Collections.sort(restaurants, new LocationSort(lastLocation.getLatitude(), lastLocation.getLongitude()));
+
+        SearchRecyclerAdapter mAdapter = new SearchRecyclerAdapter(this, restaurants);
             recyclerView.setAdapter(mAdapter);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
     }

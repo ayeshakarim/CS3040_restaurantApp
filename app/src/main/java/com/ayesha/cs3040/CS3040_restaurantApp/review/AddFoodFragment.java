@@ -1,5 +1,6 @@
 package com.ayesha.cs3040.CS3040_restaurantApp.review;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -8,15 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ayesha.cs3040.CS3040_restaurantApp.FoodItemDAO;
-import com.ayesha.cs3040.CS3040_restaurantApp.RestaurantDatabase;
+import com.ayesha.cs3040.CS3040_restaurantApp.db.FoodItemDAO;
+import com.ayesha.cs3040.CS3040_restaurantApp.db.RestaurantDatabase;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.FoodItem;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 import com.ayesha.cs3040.myapp1.R;
@@ -24,18 +21,28 @@ import com.ayesha.cs3040.myapp1.R;
 
 public class AddFoodFragment extends Fragment {
 
-    public static final String[] COURSE_OPTIONS =  {"Starter", "Main", "Dessert", "Appetizer", "Side"};
-//    final Fragment reviewFragment = new WriteReviewFragment();
     public EditText name;
     public EditText price;
     public FoodItem foodItem;
     public Review review;
+    public RestaurantItem restaurant;
 
     private FoodItemDAO foodDAO;
-    final WriteReviewFragment reviewFragment = new WriteReviewFragment();
 
     public AddFoodFragment() {
         // Required empty public constructor
+    }
+
+    public static AddFoodFragment newInstance(Review r, RestaurantItem restaurant, int id) {
+        AddFoodFragment fragment = new AddFoodFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("review", r);
+        Log.d("review", "Setting the review " + r);
+        bundle.putSerializable("restaurant", restaurant);
+        bundle.putInt("review id", id);
+        fragment.setArguments(bundle);
+
+        return fragment;
     }
 
     @Override
@@ -46,15 +53,14 @@ public class AddFoodFragment extends Fragment {
 
         RestaurantDatabase db = RestaurantDatabase.getInMemoryDatabase(getContext());
         foodDAO  = db.getFoodItemDao();
-        getIncomingInfo();
+
+        review = (Review) getArguments().getSerializable("review");
+        Log.d("review", "Getting the review " + review);
+        restaurant = (RestaurantItem) getArguments().getSerializable("restaurant");
+
+        foodItem = new FoodItem(review.getId());
 
 
-//        Spinner spinner = view.findViewById(R.id.food_course_spinner);
-
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, COURSE_OPTIONS);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinner.setAdapter(adapter);
-//        spinner.setOnItemSelectedListener(mListener);
 
         view.findViewById(R.id.food_item_submit).setOnClickListener(mListener1);
         view.findViewById(R.id.add_food_back_btn).setOnClickListener(mListener1);
@@ -76,18 +82,24 @@ public class AddFoodFragment extends Fragment {
                     Toast.makeText(getContext(), "Submit Button Clicked", Toast.LENGTH_SHORT).show();
 
                     float priceAsFloat = Float.valueOf(price.getText().toString());
+                    String nameToString = name.getText().toString();
 
-                    foodItem.setName(name.getText().toString());
+                    Log.d("food name", nameToString);
+                    Log.d("food price", priceAsFloat + "");
+//                    Log.d("review id", review.getId() + "");
+
+
+
+                    foodItem.setName(nameToString);
                     foodItem.setPrice(priceAsFloat);
-                    foodItem.setReviewId(review.getId());
+//                    foodItem.setReviewId(review.getId());
 
                     createFoodItem();
-                    replaceFragment(reviewFragment);
 
                 break;
                 case R.id.add_food_back_btn:
                     Toast.makeText(getContext(), "Back Button Clicked", Toast.LENGTH_SHORT).show();
-//                    replaceFragment(reviewFragment);
+                    replaceFragment();
                     break;
             }
         }
@@ -96,84 +108,32 @@ public class AddFoodFragment extends Fragment {
 
     public void createFoodItem(){
 
-        foodDAO.insert(foodItem);
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
 
-
-        for (FoodItem r: foodDAO.getAllItems()) {
-            Log.d("database id", r.getFoodId() + "");
-            Log.d("database food", r.getName());
-            Log.d("database price", r.getPrice() + "");
-            Log.d("database reviewId", r.getReviewId() + "");
-        }
+                foodDAO.insert(foodItem);
+                for (FoodItem r: foodDAO.getAllItems()) {
+                    Log.d("database id", r.getFoodId() + "");
+                    Log.d("database food", r.getName());
+                    Log.d("database price", r.getPrice() + "");
+                    Log.d("database reviewId", r.getReviewId() + "");
+                }
+                return null;
+            }
+        }.execute();
+        replaceFragment();
     }
 
-    private void getIncomingInfo(){
-
-            Bundle bundle = getArguments();
-            if(bundle!=null) {
-                review = (Review) bundle.getSerializable("review");
-            }
-            else {
-                Log.e("null", "parent review not found");
-            }
-
-        if(getActivity().getIntent().hasExtra("restaurant")){
-
-            Bundle bundle2 = getActivity().getIntent().getExtras();
-            if(bundle2!=null) {
-                review = (Review) bundle2.getSerializable("restaurant");
-            }
-            else {
-                Log.e("null", "parent restaurant not found");
-            }
-        }
-    }
-
-
-    public void replaceFragment(Fragment fragment) {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+    public void replaceFragment() {
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable("foodItem", foodItem);
-        fragment.setArguments(bundle);
-
-        transaction.replace(R.id.profile_container, fragment);
-        transaction.commit();
+        bundle.putSerializable("restaurant", restaurant);
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        Fragment fragment = WriteReviewFragment.newInstance(restaurant);
+        ft.replace(R.id.item_container, fragment);
+        ft.commit();
 
     }
-
-
-
-//    private final AdapterView.OnItemSelectedListener mListener = (new AdapterView.OnItemSelectedListener() {
-//
-//        @Override
-//        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//
-//            switch (position) {
-//                case 0:
-//                    Toast.makeText(getContext(), "Option 1 Clicked", Toast.LENGTH_SHORT).show();
-//                    break;
-//                case 1:
-//                    Toast.makeText(getContext(), "Option 2 Clicked", Toast.LENGTH_SHORT).show();
-//                    break;
-//                case 2:
-//                    Toast.makeText(getContext(), "Option 3 Clicked", Toast.LENGTH_SHORT).show();
-//                    break;
-//                case 3:
-//                    Toast.makeText(getContext(), "Option 4 Clicked", Toast.LENGTH_SHORT).show();
-//                    break;
-//                case 4:
-//                    Toast.makeText(getContext(), "Option 5 Clicked", Toast.LENGTH_SHORT).show();
-//                    break;
-//
-//            }
-//
-//        }
-//
-//        @Override
-//        public void onNothingSelected(AdapterView<?> parent) {
-//            // TODO Auto-generated method stub
-//        }
-//    });
 
 }

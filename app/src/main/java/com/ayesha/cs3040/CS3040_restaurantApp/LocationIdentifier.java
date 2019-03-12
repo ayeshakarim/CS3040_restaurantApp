@@ -3,9 +3,6 @@ package com.ayesha.cs3040.CS3040_restaurantApp;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.support.v4.app.FragmentActivity;
-
-import com.ayesha.cs3040.CS3040_restaurantApp.explore.ExploreFragment;
 
 import java.io.IOException;
 import java.io.Serializable;

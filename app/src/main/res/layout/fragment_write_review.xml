@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/write_review_layout"
     tools:context="com.ayesha.cs3040.CS3040_restaurantApp.review.WriteReviewFragment">
 
     <LinearLayout
@@ -106,6 +107,7 @@
                 android:layout_marginTop="5dp"
                 />
             <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/food_item_rv">
@@ -124,6 +126,7 @@
                     android:src="@drawable/ic_add_black_24dp"
                     android:tint="@android:color/white"
                     />
+
                 <TextView
                     android:layout_marginTop="-10dp"
                     android:layout_width="match_parent"

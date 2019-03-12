@@ -15,6 +15,25 @@
         android:textStyle="bold"
         android:padding="15dp"/>
 
+    <View
+        android:layout_height="1.5dp"
+        android:layout_width="match_parent"
+        android:background="#f1f1f1" />
+    <android.support.v7.widget.SearchView
+        android:id="@+id/keyword_search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:outlineAmbientShadowColor="@android:color/background_dark"
+        android:queryHint=" i.e. indian..."
+        android:elevation="10dp">
+
+    </android.support.v7.widget.SearchView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@drawable/dropshadow" />
+
 
     <Button
         android:id="@+id/explore_search_bar"
@@ -22,7 +41,7 @@
         android:layout_height="50dp"
         android:background="@color/colorAccent"
         android:layout_margin="10dp"
-        android:text="Click to Search"
+        android:text="Restaurants Near Me"
         android:textColor="@android:color/white"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textStyle="bold"

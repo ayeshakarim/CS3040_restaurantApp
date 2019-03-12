@@ -1,6 +1,5 @@
 package com.ayesha.cs3040.CS3040_restaurantApp.review;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,15 +11,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ayesha.cs3040.CS3040_restaurantApp.FoodItemDAO;
-import com.ayesha.cs3040.CS3040_restaurantApp.RestaurantDatabase;
-import com.ayesha.cs3040.CS3040_restaurantApp.ReviewDAO;
+import com.ayesha.cs3040.CS3040_restaurantApp.db.FoodItemDAO;
+import com.ayesha.cs3040.CS3040_restaurantApp.db.RestaurantDatabase;
+import com.ayesha.cs3040.CS3040_restaurantApp.db.ReviewDAO;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.FoodItem;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 import com.ayesha.cs3040.myapp1.R;
@@ -46,9 +44,17 @@ public class WriteReviewFragment extends Fragment{
     private ReviewDAO reviewDAO;
     private FoodItemDAO foodDAO;
 
-//    final Fragment addFoodFragment = new AddFoodFragment();
     public WriteReviewFragment() {
         // Required empty public constructor
+    }
+
+    public static WriteReviewFragment newInstance(RestaurantItem r) {
+        WriteReviewFragment fragment = new WriteReviewFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("restaurant", r);
+        fragment.setArguments(bundle);
+
+        return fragment;
     }
 
 
@@ -57,12 +63,17 @@ public class WriteReviewFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_write_review, container, false);
-        getIncomingIntent();
-        isCreated = checkIsCreated();
 
         RestaurantDatabase db = RestaurantDatabase.getInMemoryDatabase(getContext());
         reviewDAO  = db.getReviewDao();
         foodDAO = db.getFoodItemDao();
+
+        restaurant = (RestaurantItem) getActivity().getIntent().getSerializableExtra("restaurant");
+        checkIsCreated();
+
+
+
+        Log.d("serializable", restaurant.name + " " + restaurant.address);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.food_item_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -73,13 +84,11 @@ public class WriteReviewFragment extends Fragment{
 
         restaurant_name = view.findViewById(R.id.review_restaurant_name);
         restaurant_address = view.findViewById(R.id.review_restaurant_address);
+        restaurant_name.setText(restaurant.name);
+        restaurant_address.setText(restaurant.address);
 
         comment = (EditText) view.findViewById(R.id.review_comment);
         rating = (RatingBar) view.findViewById(R.id.review_rating);
-
-        if(isCreated) {
-            setFoodList();
-        }
 
 
         return view;
@@ -100,12 +109,15 @@ public class WriteReviewFragment extends Fragment{
 
                     String commentToString = comment.getText().toString();
                     String ratingToString = Float.toString(rating.getRating());
+                    Log.d("input info: ", commentToString + "   Rating: "+ ratingToString);
 
                     review.setComment(commentToString);
-                    review.setRating(rating.getNumStars());
+                    review.setRating(rating.getRating());
+
                     if (isCreated){
 
                         updateReview();
+
                     }
                     else {
                         createReview();
@@ -119,10 +131,10 @@ public class WriteReviewFragment extends Fragment{
                 case R.id.add_food_item:
                     Toast.makeText(getContext(), "Open Add Food Fragment", Toast.LENGTH_SHORT).show();
 
-//                    if (isCreated){ updateReview(); }
-//                    else { createReview(); }
+                    if (isCreated){ updateReview(); }
+                    else { createReview(); }
 
-//                    replaceFragment(addFoodFragment);
+                    openAddFoodFragment();
 
                     break;
             }
@@ -132,18 +144,21 @@ public class WriteReviewFragment extends Fragment{
 
     public void setFoodList(){
 
-        foodDAO.getFoodForReview(review.getId());
-
-        rv_list = new ArrayList<>();
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 rv_list = foodDAO.getFoodForReview(review.getId());
 
-                for (FoodItem r: foodDAO.getFoodForReview(review.getId())) {
-                    Log.d("database id", r.getFoodId() + "" );
-                    Log.d("database name", r.getName());
-                    Log.d("database visited", r.getPrice() + "");
+                if(foodDAO.getFoodForReview(review.getId()) == null || foodDAO.getFoodForReview(review.getId()).size() == 0){
+                    Log.d("database =", " NO FOOD ITEMS");
+
+                } else {
+
+                    for (FoodItem r: rv_list) {
+                        Log.d("database id", r.getFoodId() + "" );
+                        Log.d("database name", r.getName());
+                        Log.d("database price", r.getPrice() + "");
+                    }
                 }
 
                 ReviewRecyclerAdapter mAdapter = new ReviewRecyclerAdapter(getContext(), rv_list);
@@ -157,8 +172,11 @@ public class WriteReviewFragment extends Fragment{
 
     public void createReview(){
 
-        reviewDAO.insert(review);
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
 
+                reviewDAO.insert(review);
 
         for (Review r: reviewDAO.getAllReviews()) {
             Log.d("database id", r.getId() + "");
@@ -166,75 +184,69 @@ public class WriteReviewFragment extends Fragment{
             Log.d("database rating", r.getRating() + "");
             Log.d("database restaurant", r.getRestaurantId());
         }
+        return null;
+    }
+}.execute();
     }
 
     public void updateReview() {
 
-    }
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
 
-    private boolean checkIsCreated() {
+                reviewDAO.update(review);
 
-        Bundle bundle = getArguments();
-
-        if (bundle!= null) {
-
-            review = (Review) bundle.getSerializable("review");
-
-            comment.setText(review.getComment());
-            rating.setRating(review.getRating());
-
-            return true;
-        }
-        else {
-            Log.e("null", "is new");
-            return false;
-        }
-    }
-
-    private void getIncomingIntent(){
-
-        if(getActivity().getIntent().hasExtra("restaurant")){
-
-            Bundle bundle = getActivity().getIntent().getExtras();
-            if(bundle!=null) {
-                restaurant = (RestaurantItem) bundle.getSerializable("restaurant");
-//                String item_name = restaurant.getName();
-//                String address = restaurant.getItem_address();
-//                review.setRestaurantId(restaurant.getId());
-
-                setParams(restaurant);
-
-                Log.d("bundle params", restaurant.name);
-
+                Review r = reviewDAO.getReview(review.getId());
+                Log.d("update", r.getComment());
+                Log.d("update", r.getRating() + "");
+                Log.d("update", r.getRestaurantId());
+//                Log.d("update", r.getFoodItems().toString());
+                return null;
             }
-            else {
-                Log.e("null", "null");
+        }.execute();
+
+    }
+
+    private void checkIsCreated() {
+
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+                review = reviewDAO.findReviewsForRestaurant(restaurant.id);
+
+                if (review != null) {
+
+                    isCreated = true;
+                    comment.setText(review.getComment());
+                    rating.setRating(review.getRating());
+                    setFoodList();
+
+                } else {
+                    isCreated = false;
+                    review = new Review(restaurant.id);
+                    review.setRestaurantId(restaurant.id);
+                    Log.e("null", "is new");
+                }
+                return null;
             }
-
-        }
+        }.execute();
     }
 
-
-    private void setParams(RestaurantItem restaurant){
-
-//        String item_name = restaurant.getName();
-//        String address = restaurant.getItem_address();
-
-        review.setRestaurantId(restaurant.getId());
-        restaurant_name.setText(restaurant.getName());
-        restaurant_address.setText(restaurant.getItem_address());
-    }
-
-
-    public void replaceFragment(Fragment fragment) {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+    public void openAddFoodFragment() {
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("review", review);
-        fragment.setArguments(bundle);
+        bundle.putSerializable("restaurant", restaurant);
+        bundle.putInt("review id", review.getId());
 
-        transaction.replace(R.id.profile_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        Log.d("getreview", review.getId() + "");
+
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        Fragment fragment = AddFoodFragment.newInstance(review, restaurant, review.getId());
+        ft.replace(R.id.item_container, fragment);
+        ft.addToBackStack(null);
+        ft.commit();
     }
 }

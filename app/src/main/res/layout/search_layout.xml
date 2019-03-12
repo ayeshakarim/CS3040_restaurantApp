@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,9 +16,6 @@
         <include layout="@layout/loading_layout"
             android:id="@+id/loading_layout"
             android:visibility="gone"/>
-        <!--<include layout="@layout/not_connected_layout"-->
-            <!--android:id="@+id/not_connected_layout"-->
-            <!--android:visibility="gone"/>-->
         <include layout="@layout/permission_layout"
             android:id="@+id/permission_layout"
             android:visibility="gone"/>

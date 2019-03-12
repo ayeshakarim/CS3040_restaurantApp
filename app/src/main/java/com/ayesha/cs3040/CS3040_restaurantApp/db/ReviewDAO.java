@@ -1,4 +1,4 @@
-package com.ayesha.cs3040.CS3040_restaurantApp;
+package com.ayesha.cs3040.CS3040_restaurantApp.db;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
@@ -25,6 +25,9 @@ public interface ReviewDAO {
     @Query("SELECT * FROM review")
     List<Review> getAllReviews();
 
+    @Query("SELECT * FROM review WHERE id = :id")
+    Review getReview(final int id);
+
     @Query("SELECT * FROM review WHERE restaurantId=:restaurantId")
-    List<Review> findReviewsForRestaurant(final int restaurantId);
+    Review findReviewsForRestaurant(final String restaurantId);
 }

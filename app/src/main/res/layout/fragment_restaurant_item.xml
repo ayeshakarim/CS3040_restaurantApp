@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ayesha.cs3040.CS3040_restaurantApp.item.ItemFragment">
-
+    android:id="@+id/restaurant_layout"
+    tools:context="com.ayesha.cs3040.CS3040_restaurantApp.item.ItemActivity"
+    >
     <!--<android.support.v7.widget.RecyclerView-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="wrap_content"-->
@@ -21,82 +22,55 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:id="@+id/item_image1"
-                android:background="@color/colorPrimary"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="-200dp"
                 >
-
-                <android.support.design.circularreveal.CircularRevealLinearLayout
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_margin="10dp"
-                    android:background="#7000"
-                    android:orientation="horizontal"
-
-                    >
 
                     <ImageView
                         android:id="@+id/item_share_btn"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
-                        android:layout_marginStart="5dp"
-                        android:src="@drawable/ic_share_black_24dp" />
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="10dp"
+                        android:layout_marginEnd="5dp"
+                        android:src="@drawable/ic_share_black_24dp"
+                        android:tint="@color/colorPrimary"
+                        android:onClick="SHARE"
+                        android:actionProviderClass=
+                            "android.widget.ShareActionProvider"/>
 
-                </android.support.design.circularreveal.CircularRevealLinearLayout>
 
-                <android.support.design.circularreveal.CircularRevealLinearLayout
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="60dp"
-                    android:background="#7000"
-                    android:orientation="horizontal"
-
-                    >
-
-                    <ImageView
-                        android:id="@+id/item_favourite_btn"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="5dp"
-                        android:src="@drawable/ic_favorite_border_black_24dp" />
-
-                </android.support.design.circularreveal.CircularRevealLinearLayout>
-
-                <android.support.design.circularreveal.CircularRevealLinearLayout
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentStart="true"
+                <ImageView
+                    android:id="@+id/item_back_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:background="#7000"
-                    android:orientation="horizontal"
+                    android:src="@drawable/ic_arrow_back_black_24dp"
+                    android:tint="@color/colorPrimary"
+                    />
 
-                    >
-
-                    <ImageView
-                        android:id="@+id/item_back_btn"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_arrow_back_black_24dp" />
-
-                </android.support.design.circularreveal.CircularRevealLinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="200dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingStart="10dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/explore_title"
+                        android:text="Visited Restaurant"
+                        android:textColor="@color/colorPrimary"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+                        android:textSize="25dp"
+                        android:textStyle="bold"
+                        android:padding="10dp"
+                        android:layout_marginStart="35dp"/>
 
                     <TextView
                         android:id="@+id/item_name"
@@ -120,180 +94,164 @@
                         android:rating="4"
                         android:stepSize="1" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                    <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
 
-                        <android.support.v7.widget.CardView
-                            android:layout_width="100dp"
-                            android:layout_height="30dp"
-                            app:cardCornerRadius="20dp"
-                            app:cardMaxElevation="2dp"
-                            app:cardElevation="1dp"
-                            android:layout_centerInParent="true"
-                            android:layout_marginLeft="10dp">
-
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:scaleType="centerCrop"
-                                android:layout_centerHorizontal="true"
-                                android:background="@color/colorPrimary"
-                                />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentLeft="true"
-                                android:orientation="vertical"
-                                >
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center"
-                                    android:shadowColor="#000"
-                                    android:shadowDx="3"
-                                    android:shadowDy="3"
-                                    android:shadowRadius="6"
-                                    android:text="Tag Item 1"
-                                    android:textColor="#FFF"
-                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                                    android:textStyle="bold"
-                                    />
-
-                            </LinearLayout>
-
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:layout_width="100dp"
-                            android:layout_height="30dp"
-                            app:cardCornerRadius="20dp"
-                            app:cardMaxElevation="2dp"
-                            app:cardElevation="1dp"
-                            android:layout_centerInParent="true"
-                            android:layout_marginLeft="10dp">
+                    <!--<android.support.v7.widget.CardView-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--app:cardCornerRadius="20dp"-->
+                    <!--app:cardMaxElevation="2dp"-->
+                    <!--app:cardElevation="1dp"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:layout_marginLeft="10dp">-->
 
 
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:scaleType="centerCrop"
-                                android:layout_centerHorizontal="true"
-                                android:background="@color/colorPrimary"
-                                />
+                    <!--<ImageView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:scaleType="centerCrop"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:background="@color/colorPrimary"-->
+                    <!--/>-->
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentLeft="true"
-                                android:orientation="vertical"
-                                >
+                    <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_alignParentLeft="true"-->
+                    <!--android:orientation="vertical"-->
+                    <!--&gt;-->
 
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center"
-                                    android:shadowColor="#000"
-                                    android:shadowDx="3"
-                                    android:shadowDy="3"
-                                    android:shadowRadius="6"
-                                    android:text="Tag Item 2"
-                                    android:textColor="#FFF"
-                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                                    android:textStyle="bold"
-                                    />
+                    <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="Tag Item 1"-->
+                    <!--android:textColor="#FFF"-->
+                    <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"-->
+                    <!--android:textStyle="bold"-->
+                    <!--/>-->
 
-                            </LinearLayout>
+                    <!--</LinearLayout>-->
 
-                        </android.support.v7.widget.CardView>
+                    <!--</android.support.v7.widget.CardView>-->
 
-                        <android.support.v7.widget.CardView
-                            android:layout_width="100dp"
-                            android:layout_height="30dp"
-                            app:cardCornerRadius="20dp"
-                            app:cardMaxElevation="2dp"
-                            app:cardElevation="1dp"
-                            android:layout_centerInParent="true"
-                            android:layout_marginLeft="10dp">
+                    <!--<android.support.v7.widget.CardView-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--app:cardCornerRadius="20dp"-->
+                    <!--app:cardMaxElevation="2dp"-->
+                    <!--app:cardElevation="1dp"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:layout_marginLeft="10dp">-->
 
 
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:scaleType="centerCrop"
-                                android:layout_centerHorizontal="true"
-                                android:background="@color/colorPrimary"
-                                />
+                    <!--<ImageView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:scaleType="centerCrop"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:background="@color/colorPrimary"-->
+                    <!--/>-->
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentLeft="true"
-                                android:orientation="vertical"
-                                >
+                    <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_alignParentLeft="true"-->
+                    <!--android:orientation="vertical"-->
+                    <!--&gt;-->
 
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center"
-                                    android:shadowColor="#000"
-                                    android:shadowDx="3"
-                                    android:shadowDy="3"
-                                    android:shadowRadius="6"
-                                    android:text="Tag Item 2"
-                                    android:textColor="#FFF"
-                                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                                    android:textStyle="bold"
-                                    />
+                    <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="Tag Item 2"-->
+                    <!--android:textColor="#FFF"-->
+                    <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"-->
+                    <!--android:textStyle="bold"-->
+                    <!--/>-->
 
-                            </LinearLayout>
+                    <!--</LinearLayout>-->
 
-                        </android.support.v7.widget.CardView>
+                    <!--</android.support.v7.widget.CardView>-->
 
-                    </LinearLayout>
+                    <!--<android.support.v7.widget.CardView-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--app:cardCornerRadius="20dp"-->
+                    <!--app:cardMaxElevation="2dp"-->
+                    <!--app:cardElevation="1dp"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:layout_marginLeft="10dp">-->
+
+
+                    <!--<ImageView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:scaleType="centerCrop"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:background="@color/colorPrimary"-->
+                    <!--/>-->
+
+                    <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_alignParentLeft="true"-->
+                    <!--android:orientation="vertical"-->
+                    <!--&gt;-->
+
+                    <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="Tag Item 3"-->
+                    <!--android:textColor="#FFF"-->
+                    <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"-->
+                    <!--android:textStyle="bold"-->
+                    <!--/>-->
+
+                    <!--</LinearLayout>-->
+
+                    <!--</android.support.v7.widget.CardView>-->
+
+                    <!--</LinearLayout>-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_marginTop="25dp">
+                        android:layout_marginTop="15dp">
 
                         <TextView
+                            android:id="@+id/item_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:text="55 example Lane"
-                            android:drawableLeft="@drawable/ic_location_on_black_24dp"
+                            android:text="Time value"
+                            android:drawableLeft="@drawable/ic_access_time_black_24dp"
                             android:drawableTint="@color/colorPrimary"
                             android:drawablePadding="10dp"
                             android:paddingStart="10dp"/>
-                        <TextView
-                            android:paddingStart="45dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:text="Birmingham, B19 999"/>
 
                         <View
-                            android:layout_marginTop="10dp"
+                            android:layout_marginVertical="10dp"
                             android:layout_height="5dp"
                             android:background="@drawable/dropshadow"
                             android:layout_width="match_parent"/>
 
 
                         <TextView
+                            android:id="@+id/item_address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:text="0121 777 9999"
-                            android:drawableLeft="@drawable/ic_phone_black_24dp"
+                            android:text="55 example Lane"
+                            android:drawableLeft="@drawable/ic_location_on_black_24dp"
                             android:drawableTint="@color/colorPrimary"
                             android:drawablePadding="10dp"
                             android:paddingStart="10dp"/>
@@ -305,9 +263,10 @@
                             android:layout_width="match_parent" />
 
                         <TextView
+                            android:id="@+id/item_website"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
+                            android:layout_marginTop="5dp"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:text="www.example.co.uk"
                             android:drawableLeft="@drawable/ic_library_books_black_24dp"
@@ -320,81 +279,33 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="20dp"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Map Location"
+                            android:text="My Review"
                             android:textStyle="bold"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
                             android:textColor="#666666"
                             android:layout_marginVertical="10dp"
+                            android:paddingLeft="10dp"
                             />
-
-                        <ImageView
-                            android:id="@+id/item_map_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="150dp"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="30dp"
-                        android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/item_no_reviews"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="My Meals"
-                            android:textStyle="bold"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-                            android:textColor="#666666"
-                            android:layout_marginVertical="10dp"
-                            />
-                        <LinearLayout
+                            android:text="You have not reviewed this restaurant."
+                            android:layout_marginStart="10dp"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:visibility="gone"/>
+
+                        <android.support.v7.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="250dp"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/meal_list_name"
-                                android:text="Food Item"
-                                />
-                            <TextView
-                                android:id="@+id/meal_list_price"
-                                android:layout_width="100dp"
-                                android:layout_height="wrap_content"
-                                android:text="£10.10"
-                                android:textAlignment="textEnd"
-                                />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="30dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Reviews"
-                            android:textStyle="bold"
-                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-                            android:textColor="#666666"
-                            android:layout_marginVertical="10dp"
-                            />
-
-
+                            android:id="@+id/item_reviews_rv"/>
 
                     </LinearLayout>
 
@@ -406,15 +317,14 @@
     </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_book"
+        android:id="@+id/fab_write_review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:clickable="true"
-        android:src="@drawable/ic_add_black_24dp"
+        android:src="@drawable/ic_edit_black_24dp"
         android:tooltipText="write a review"
         android:tint="@android:color/white"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"/>
-
 </RelativeLayout>

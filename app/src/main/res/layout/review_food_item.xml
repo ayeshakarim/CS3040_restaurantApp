@@ -23,16 +23,16 @@
     <LinearLayout
         android:layout_width="100dp"
         android:layout_height="match_parent" android:layout_marginEnd="10dp">
+
         <TextView
             android:id="@+id/review_food_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:text="£ 16.00"
-            android:textStyle="bold"
-            android:paddingHorizontal="10dp"
             android:gravity="end"
-            />
+            android:layout_marginStart="25dp"
+            android:text="£ 16.00"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <ImageView

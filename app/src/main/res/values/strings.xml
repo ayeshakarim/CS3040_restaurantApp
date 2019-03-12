@@ -2,8 +2,8 @@
     <string name="app_name">My App 1</string>
     <string name="title_visited">Visited</string>
     <string name="title_search">Search</string>
-    <string name="title_profile">Profile</string>
-    <string name="title_history">My Bookings</string>
+    <string name="title_reviews">My Reviews</string>
+    <string name="title_history">Bookings</string>
     <string name="profile_btn_info">Personal Information</string>
     <string name="profile_btn_new_review">Write a Review</string>
     <string name="profile_btn_new_restaurant">Add a Restaurant</string>

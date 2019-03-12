@@ -8,15 +8,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ayesha.cs3040.CS3040_restaurantApp.FoodItemDAO;
-import com.ayesha.cs3040.CS3040_restaurantApp.RestaurantDatabase;
+import com.ayesha.cs3040.CS3040_restaurantApp.db.FoodItemDAO;
+import com.ayesha.cs3040.CS3040_restaurantApp.db.RestaurantDatabase;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.FoodItem;
+import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 import com.ayesha.cs3040.myapp1.R;
 
 import java.io.Serializable;
@@ -40,7 +39,6 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<ReviewRecyclerAd
     @Override
     public ReviewRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, final int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.review_food_item, parent, false);
-
         return new ViewHolder(view);
     }
 
@@ -48,7 +46,7 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<ReviewRecyclerAd
     public void onBindViewHolder(@NonNull ReviewRecyclerAdapter.ViewHolder holder, final int position) {
 
         final String name = food_list.get(position).getName();
-        String price = Double.toString(food_list.get(position).getPrice());
+        String price = "£ " + Double.toString(food_list.get(position).getPrice());
 
         holder.name.setText(name);
         holder.price.setText(price);
@@ -59,6 +57,8 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<ReviewRecyclerAd
 
                 try {
                     deleteItem(food_list.get(position));
+                    food_list.remove(position);
+                    notifyDataSetChanged();
                     Toast.makeText(mContext, "deleting " + food_list.get(position).getName(), Toast.LENGTH_SHORT).show();
 
                 } catch (Exception e) {
@@ -70,13 +70,10 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<ReviewRecyclerAd
     }
 
     public void deleteItem(final FoodItem item) {
-        foodDAO.delete(item);
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 foodDAO.delete(item);
-                notifyDataSetChanged();
-
                 for (FoodItem r: foodDAO.getAllItems()) {
                     Log.d("database", r.getFoodId() + " " + r.getName());
                 }
@@ -99,8 +96,8 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<ReviewRecyclerAd
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            name = mView.findViewById(R.id.item_name);
-            price = mView.findViewById(R.id.item_address);
+            name = mView.findViewById(R.id.review_food_name);
+            price = mView.findViewById(R.id.review_food_price);
             deleteBtn = mView.findViewById(R.id.review_food_binBtn);
         }
     }

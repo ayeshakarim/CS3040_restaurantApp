@@ -6,6 +6,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import com.ayesha.cs3040.CS3040_restaurantApp.item.FoodItem;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
@@ -18,13 +19,17 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 @Entity(foreignKeys = @ForeignKey(entity = RestaurantItem.class, parentColumns = "id", childColumns = "restaurantId", onDelete = CASCADE))
 public class Review implements Serializable {
 
+    @NonNull
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private int id = 0;
 
+    @NonNull
     private float rating;
 
+    @NonNull
     private String comment;
 
+    @NonNull
     private String restaurantId;
 
 
@@ -34,14 +39,14 @@ public class Review implements Serializable {
     private List<FoodItem> foodItems;
 
     @Ignore
-    public Review() {
+    public Review(String id) {
+
+        this.restaurantId = id;
     }
 
     public Review( float rating, String comment, String restaurantId) {
         this.rating = rating;
         this.comment = comment;
-//        this.item = item;
-//        this.foodItems = foodItems;
         this.restaurantId = restaurantId;
     }
 

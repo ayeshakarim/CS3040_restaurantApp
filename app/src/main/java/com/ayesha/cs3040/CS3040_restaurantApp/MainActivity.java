@@ -21,7 +21,7 @@ import android.view.MenuItem;
 import com.ayesha.cs3040.CS3040_restaurantApp.search.SearchFragment;
 import com.ayesha.cs3040.myapp1.R;
 import com.ayesha.cs3040.CS3040_restaurantApp.bookings.BookingsFragment;
-import com.ayesha.cs3040.CS3040_restaurantApp.explore.ExploreFragment;
+import com.ayesha.cs3040.CS3040_restaurantApp.explore.VisitedFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,10 +37,10 @@ public class MainActivity extends AppCompatActivity {
     private static final String[] REQUIRED_SDK_PERMISSIONS = new String[]{
             Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
-    final Fragment fragment1 = new ExploreFragment();
+    final Fragment fragment1 = new VisitedFragment();
     final Fragment fragment2 = new BookingsFragment();
     final Fragment fragment3 = new SearchFragment();
-    final Fragment fragment4 = new ProfileFragment();
+    final Fragment fragment4 = new ReviewsFragment();
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = fragment1;
 
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
+                case R.id.navigation_visited:
                     fm.beginTransaction().hide(active).show(fragment1).commit();
                     active = fragment1;
                     return true;
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent i = new Intent(MainActivity.this, SearchActivity.class);
                     startActivity(i);
                     return true;
-                case R.id.navigation_profile:
+                case R.id.navigation_reviews:
                     fm.beginTransaction().hide(active).show(fragment4).commit();
                     active = fragment4;
                     return true;

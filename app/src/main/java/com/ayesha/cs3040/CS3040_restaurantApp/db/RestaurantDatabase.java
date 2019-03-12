@@ -1,4 +1,4 @@
-package com.ayesha.cs3040.CS3040_restaurantApp;
+package com.ayesha.cs3040.CS3040_restaurantApp.db;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
@@ -11,7 +11,7 @@ import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 import com.ayesha.cs3040.CS3040_restaurantApp.review.Review;
 
 @Database(entities = { RestaurantItem.class, Review.class, FoodItem.class},
-        version = 2)
+        version = 3)
 @TypeConverters({Converters.class})
 public abstract class RestaurantDatabase extends RoomDatabase {
 

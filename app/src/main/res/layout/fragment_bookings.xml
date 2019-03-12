@@ -1,11 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ayesha.cs3040.CS3040_restaurantApp.bookings.BookingsFragment"
     android:orientation="vertical"
     >
+        <LinearLayout
+            android:id="@+id/bookings_sort_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginVertical="10dp"
+            android:layout_below="@+id/explore_title">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sort By: "
+                    android:paddingEnd="40dp"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textStyle="bold"
+                    android:layout_marginStart="15dp"/>
+
+                <Button
+                    android:id="@+id/bookings_sort_distance"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Distance"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:layout_marginRight="15dp"
+                    app:backgroundTint="@color/colorAccent"/>
+
+                <Button
+                    android:id="@+id/bookings_sort_date"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Date"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/colorAccent"/>
+
+        </LinearLayout>
+
+        <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_below="@+id/bookings_sort_container"
+        android:background="@drawable/dropshadow" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -17,11 +63,19 @@
             android:textStyle="bold"
             android:padding="15dp"/>
 
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/coordinatorLayout"
+        android:layout_below="@+id/bookings_sort_container">
+
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:id="@+id/booking_rv">
+            android:id="@+id/booking_rv"
+            android:layout_below="@+id/bookings_sort_container">
         </android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
+</RelativeLayout>
