@@ -32,6 +32,7 @@ import java.util.List;
 
 import com.ayesha.cs3040.CS3040_restaurantApp.db.RestaurantDAO;
 import com.ayesha.cs3040.CS3040_restaurantApp.db.RestaurantDatabase;
+import com.ayesha.cs3040.CS3040_restaurantApp.db.ReviewDAO;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.ItemActivity;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 import com.ayesha.cs3040.myapp1.R;
@@ -42,8 +43,10 @@ public class VisitedRecyclerAdapter extends RecyclerView.Adapter<VisitedRecycler
     public List<RestaurantItem> home_list;
     private FragmentActivity c;
     private Looper looper;
+    private boolean isReviewed;
 
     private RestaurantDAO restaurantDAO;
+    private ReviewDAO reviewDAO;
 
     private int mYear, mMonth, mDay, mHour, mMinute;
     private Calendar newCal = Calendar.getInstance();
@@ -55,6 +58,7 @@ public class VisitedRecyclerAdapter extends RecyclerView.Adapter<VisitedRecycler
         this.home_list = list;
         RestaurantDatabase db = RestaurantDatabase.getInMemoryDatabase(c);
         restaurantDAO  = db.getRestaurantDao();
+        reviewDAO = db.getReviewDao();
     }
 
     @NonNull

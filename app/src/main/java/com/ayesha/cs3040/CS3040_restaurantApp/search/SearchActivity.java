@@ -1,4 +1,4 @@
-package com.ayesha.cs3040.CS3040_restaurantApp;
+package com.ayesha.cs3040.CS3040_restaurantApp.search;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.ayesha.cs3040.CS3040_restaurantApp.LocationSort;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 import com.ayesha.cs3040.myapp1.R;
 
@@ -123,6 +124,7 @@ public class SearchActivity extends AppCompatActivity implements Runnable{
 
     @Nullable
     private Location getLastBestLocation() {
+
         if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             Log.d("permission"," " + ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) );

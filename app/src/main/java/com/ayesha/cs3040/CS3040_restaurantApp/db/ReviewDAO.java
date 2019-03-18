@@ -22,6 +22,7 @@ public interface ReviewDAO {
     @Delete
     void delete(Review... reviews);
 
+
     @Query("SELECT * FROM review")
     List<Review> getAllReviews();
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.ayesha.cs3040.CS3040_restaurantApp.LocationSort;
@@ -57,7 +59,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private Looper looper;
     private LatLng lastLocation;
     private List<Marker> markers;
-    LocationManager locationManager;
+    private LocationManager locationManager;
+    private ImageView refresh;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,8 +71,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         lastLocation = getLastBestLocation();
 
+        refresh = (ImageView) view.findViewById(R.id.map_refresh);
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    getMarkerLocations();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         getPlaces();
-
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
@@ -131,14 +144,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             markers.add(marker);
         }
 
-        mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLocation, 15));
 
-            @Override
-            public void onCameraMove() {
-                Toast.makeText(getContext(), "Camera moving.",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+//        mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+//
+//            @Override
+//            public void onCameraMove() {
+//                Toast.makeText(getContext(), "Camera moving.",
+//                        Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -182,8 +197,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         if (lastLocation != null) {
 
             int i = 0;
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLocation, 15));
-
             VisibleRegion currentScreen = mMap.getProjection().getVisibleRegion();
             for(Marker marker : markers) {
                 if(currentScreen.latLngBounds.contains(marker.getPosition())) {

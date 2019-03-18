@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/navigation_visited"
-        android:icon="@drawable/ic_explore_black_24dp"
+        android:icon="@drawable/ic_restaurant_black_24dp"
         android:title="@string/title_visited"
     />
 
@@ -22,7 +22,7 @@
 
     <item
         android:id="@+id/navigation_reviews"
-        android:icon="@drawable/ic_person_black_24dp"
+        android:icon="@drawable/ic_library_books_black_24dp"
         android:title="@string/title_reviews"
         />
 

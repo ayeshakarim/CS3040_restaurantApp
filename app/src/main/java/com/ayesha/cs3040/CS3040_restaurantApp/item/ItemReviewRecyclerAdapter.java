@@ -1,10 +1,8 @@
 package com.ayesha.cs3040.CS3040_restaurantApp.item;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.TestLooperManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -20,12 +18,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ayesha.cs3040.CS3040_restaurantApp.ReviewsFragment;
 import com.ayesha.cs3040.CS3040_restaurantApp.db.RestaurantDAO;
 import com.ayesha.cs3040.CS3040_restaurantApp.db.RestaurantDatabase;
 import com.ayesha.cs3040.CS3040_restaurantApp.db.ReviewDAO;
 import com.ayesha.cs3040.CS3040_restaurantApp.review.Review;
-import com.ayesha.cs3040.CS3040_restaurantApp.review.ReviewRecyclerAdapter;
+import com.ayesha.cs3040.CS3040_restaurantApp.review.WriteReviewFragment;
 import com.ayesha.cs3040.myapp1.R;
 
 import java.io.Serializable;
@@ -43,6 +40,7 @@ public class ItemReviewRecyclerAdapter extends RecyclerView.Adapter<ItemReviewRe
     private List<Review> reviews;
     private RestaurantItem r;
     private List<RestaurantItem> r_items;
+    private ItemActivity myActivity;
 
 
     public ItemReviewRecyclerAdapter(Context context, List<Review> list, RestaurantItem r) {
@@ -67,6 +65,7 @@ public class ItemReviewRecyclerAdapter extends RecyclerView.Adapter<ItemReviewRe
     public ItemReviewRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, final int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.review_item, parent, false);
 
+        myActivity = (ItemActivity) view.getContext();
         return new ViewHolder(view);
     }
 
@@ -99,20 +98,12 @@ public class ItemReviewRecyclerAdapter extends RecyclerView.Adapter<ItemReviewRe
         holder.bDate.setText(getDate(date));
         holder.editBtn.setVisibility(View.GONE);
 
-//        holder.layout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Toast.makeText(c, r.name, Toast.LENGTH_SHORT).show();
-//
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("restaurant", r);
-//                Intent intent = new Intent(c, ItemActivity.class);
-//                intent.putExtras(bundle);
-//                c.startActivity(intent);
-//
-//            }
-//        });
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openSection();
+            }
+        });
 
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +154,18 @@ public class ItemReviewRecyclerAdapter extends RecyclerView.Adapter<ItemReviewRe
                 return null;
             }
         }.execute();
+    }
+
+    public void openSection(){
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("restaurant", r);
+
+        myActivity.setContentView(R.layout.activity_item);
+        FragmentTransaction ft = myActivity.getSupportFragmentManager().beginTransaction();
+        Fragment fragment = WriteReviewFragment.newInstance(r);
+        ft.replace(R.id.item_container, fragment);
+        ft.commit();
     }
 
     @Override

@@ -5,14 +5,11 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.location.Location;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-import com.ayesha.cs3040.CS3040_restaurantApp.LocationIdentifier;
-import com.ayesha.cs3040.CS3040_restaurantApp.SearchActivity;
+import com.ayesha.cs3040.CS3040_restaurantApp.search.LocationIdentifier;
+import com.ayesha.cs3040.CS3040_restaurantApp.search.SearchActivity;
 import com.ayesha.cs3040.CS3040_restaurantApp.review.Review;
-import com.google.firebase.database.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.Date;

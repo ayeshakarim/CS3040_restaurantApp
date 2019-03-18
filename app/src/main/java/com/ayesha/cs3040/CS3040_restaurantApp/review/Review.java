@@ -1,18 +1,16 @@
 package com.ayesha.cs3040.CS3040_restaurantApp.review;
 
 
-import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 
-import com.ayesha.cs3040.CS3040_restaurantApp.item.FoodItem;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 
 import java.io.Serializable;
-import java.util.List;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
@@ -23,11 +21,11 @@ public class Review implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id = 0;
 
-    @NonNull
     private float rating;
 
-    @NonNull
     private String comment;
+
+    private String imageUri;
 
     @NonNull
     private String restaurantId;
@@ -35,8 +33,6 @@ public class Review implements Serializable {
 
     @Ignore
     private RestaurantItem item;
-    @Ignore
-    private List<FoodItem> foodItems;
 
     @Ignore
     public Review(String id) {
@@ -86,14 +82,10 @@ public class Review implements Serializable {
         this.item = item;
     }
 
-    public void setFoodItem(FoodItem foodItem) {
-        this.foodItems.add(foodItem);
-    }
+    public String getImageUri() { return imageUri; }
 
-    public List<FoodItem> getFoodItems() { return foodItems; }
+    public void setImageUri(Uri imageUri) { this.imageUri = imageUri.toString(); }
 
-    public void setFoodItems(List<FoodItem> foodItems) {
-        this.foodItems = foodItems;
-    }
+    public void setImageUri(String imageUri) { this.imageUri = imageUri; }
 }
 

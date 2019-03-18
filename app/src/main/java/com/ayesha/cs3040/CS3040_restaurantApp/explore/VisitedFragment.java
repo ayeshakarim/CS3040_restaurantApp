@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -21,8 +22,10 @@ import java.util.List;
 
 import com.ayesha.cs3040.CS3040_restaurantApp.db.RestaurantDAO;
 import com.ayesha.cs3040.CS3040_restaurantApp.db.RestaurantDatabase;
+import com.ayesha.cs3040.CS3040_restaurantApp.db.ReviewDAO;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 import com.ayesha.cs3040.CS3040_restaurantApp.map.MapFragment;
+import com.ayesha.cs3040.CS3040_restaurantApp.review.Review;
 import com.ayesha.cs3040.myapp1.R;
 
 
@@ -33,6 +36,8 @@ public class VisitedFragment extends Fragment implements View.OnClickListener{
     private FloatingActionButton mapBtn;
     private Button sortDate;
     private Button sortName;
+    private VisitedRecyclerAdapter mAdapter;
+    private ImageView refresh;
 
     private RestaurantDAO restaurantDAO;
 
@@ -54,11 +59,13 @@ public class VisitedFragment extends Fragment implements View.OnClickListener{
         mapBtn = (FloatingActionButton) view.findViewById(R.id.fab);
         sortDate = (Button) view.findViewById(R.id.home_sort_date);
         sortName = (Button) view.findViewById(R.id.home_sort_a_z);
+        refresh = (ImageView) view.findViewById(R.id.visited_refresh);
 
 
         mapBtn.setOnClickListener(this);
         sortName.setOnClickListener(this);
         sortDate.setOnClickListener(this);
+        refresh.setOnClickListener(this);
 
         setVisitedList();
 
@@ -80,9 +87,10 @@ public class VisitedFragment extends Fragment implements View.OnClickListener{
                     Log.d("database visited", r.isVisited() + "");
                 }
 
-                VisitedRecyclerAdapter mAdapter = new VisitedRecyclerAdapter(getContext(),getActivity(), rv_list);
+                mAdapter = new VisitedRecyclerAdapter(getContext(),getActivity(), rv_list);
 
                 recyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
                 return null;
             }
@@ -118,6 +126,16 @@ public class VisitedFragment extends Fragment implements View.OnClickListener{
                     }
                 }.execute();
                 Toast.makeText(getContext(), "ordering alphabetically", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.visited_refresh:
+                new AsyncTask<Void, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Void... voids) {
+                        rv_list = restaurantDAO.findBookingsVisited(true);
+                        return null;
+                    }
+                }.execute();
+                Toast.makeText(getContext(), "refreshing the list", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fab:
                 fragment = new MapFragment();

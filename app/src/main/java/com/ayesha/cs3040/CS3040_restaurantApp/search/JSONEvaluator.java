@@ -1,4 +1,4 @@
-package com.ayesha.cs3040.CS3040_restaurantApp;
+package com.ayesha.cs3040.CS3040_restaurantApp.search;
 
 import android.location.Location;
 import android.util.Log;
@@ -39,8 +39,6 @@ class JSONEvaluator implements Runnable {
     public void run() {
         try {
             for (int i=0; i < 2; i++) {
-
-                Log.w("iiiii", i + "");
 
                 if( keyword == null) {
                 Log.w("url", buildURL(location, false));
@@ -119,7 +117,6 @@ class JSONEvaluator implements Runnable {
                             } else {
                                 return;
                             }
-//                        }
                     }
                 }
                 Log.v("Size", String.valueOf(restaurants.size()));
@@ -131,7 +128,6 @@ class JSONEvaluator implements Runnable {
                         continue;
                     }
                 }
-//                }
                 ArrayList<RestaurantItem> oldList = restaurants;
                 restaurants = new ArrayList<>();
                 restaurants = oldList;
@@ -139,7 +135,7 @@ class JSONEvaluator implements Runnable {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            restaurants = new ArrayList<RestaurantItem>();
+            restaurants = new ArrayList<>();
             restaurants.add(RestaurantItem.INVALID);        }
     }
 
@@ -174,6 +170,7 @@ class JSONEvaluator implements Runnable {
         maxPrice = 5;
         location = null;
         restaurants = null;
+        keyword = null;
     }
 
     public ArrayList<RestaurantItem> getRestaurants() {

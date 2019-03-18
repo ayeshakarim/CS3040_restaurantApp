@@ -1,8 +1,17 @@
 package com.ayesha.cs3040.CS3040_restaurantApp.review;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,17 +33,26 @@ import com.ayesha.cs3040.CS3040_restaurantApp.item.FoodItem;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 import com.ayesha.cs3040.myapp1.R;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
 
-public class WriteReviewFragment extends Fragment{
+
+public class WriteReviewFragment extends Fragment {
 
     private TextView restaurant_name;
     private TextView restaurant_address;
     private EditText comment;
     private RatingBar rating;
+    private ImageView imageView;
+    private ImageView setImageBtn;
+    private TextView setImageText;
 
+    private Uri uri;
     private List<FoodItem> rv_list;
     private RecyclerView recyclerView;
 
@@ -43,6 +62,9 @@ public class WriteReviewFragment extends Fragment{
 
     private ReviewDAO reviewDAO;
     private FoodItemDAO foodDAO;
+
+    private int GALLERY_REQUEST_CODE = 1;
+
 
     public WriteReviewFragment() {
         // Required empty public constructor
@@ -81,6 +103,7 @@ public class WriteReviewFragment extends Fragment{
         view.findViewById(R.id.review_back_btn).setOnClickListener(mListener);
         view.findViewById(R.id.review_submit).setOnClickListener(mListener);
         view.findViewById(R.id.add_food_item).setOnClickListener(mListener);
+        view.findViewById(R.id.add_review_image).setOnClickListener(mListener);
 
         restaurant_name = view.findViewById(R.id.review_restaurant_name);
         restaurant_address = view.findViewById(R.id.review_restaurant_address);
@@ -89,7 +112,9 @@ public class WriteReviewFragment extends Fragment{
 
         comment = (EditText) view.findViewById(R.id.review_comment);
         rating = (RatingBar) view.findViewById(R.id.review_rating);
-
+        imageView = (ImageView) view.findViewById(R.id.review_image);
+        setImageBtn = (ImageView) view.findViewById(R.id.add_image_circle);
+        setImageText = (TextView) view.findViewById(R.id.add_image_text);
 
         return view;
     }
@@ -97,6 +122,14 @@ public class WriteReviewFragment extends Fragment{
 
     private final View.OnClickListener mListener = new View.OnClickListener() {
         public void onClick(View view) {
+
+            String commentToString = comment.getText().toString();
+            String ratingToString = Float.toString(rating.getRating());
+            Log.d("input info: ", commentToString + "   Rating: "+ ratingToString);
+
+            review.setComment(commentToString);
+            review.setRating(rating.getRating());
+
             switch (view.getId()) {
                 case R.id.review_back_btn:
                     Toast.makeText(getContext(), "Back Button Clicked", Toast.LENGTH_SHORT).show();
@@ -107,20 +140,13 @@ public class WriteReviewFragment extends Fragment{
                 case R.id.review_submit:
                     Toast.makeText(getContext(), "Submit Button Clicked", Toast.LENGTH_SHORT).show();
 
-                    String commentToString = comment.getText().toString();
-                    String ratingToString = Float.toString(rating.getRating());
-                    Log.d("input info: ", commentToString + "   Rating: "+ ratingToString);
-
-                    review.setComment(commentToString);
-                    review.setRating(rating.getRating());
-
                     if (isCreated){
 
                         updateReview();
 
                     }
                     else {
-                        createReview();
+                        createReview(1);
                     }
 
                     Log.d( "REVIEW", commentToString + " RATING : " + ratingToString);
@@ -131,16 +157,62 @@ public class WriteReviewFragment extends Fragment{
                 case R.id.add_food_item:
                     Toast.makeText(getContext(), "Open Add Food Fragment", Toast.LENGTH_SHORT).show();
 
-                    if (isCreated){ updateReview(); }
-                    else { createReview(); }
+                    if (isCreated){openAddFoodFragment(); updateReview(); }
+                    else { createReview(2); }
 
-                    openAddFoodFragment();
+                    break;
+
+                case R.id.add_review_image:
+                    Log.d("getImage", "button clicked");
+                    getImage();
 
                     break;
             }
         }
     };
 
+
+    public void getImage() {
+
+        Log.d("getImage", "method started");
+
+        Intent intent=new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputY", 300);
+        intent.putExtra("outputX", 300);
+        intent.putExtra("scale", true);
+
+        String[] mimeTypes = {"image/jpeg", "image/png"};
+        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
+        // Launching the Intent
+        startActivityForResult(intent, 1);
+    }
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+                if(resultCode == RESULT_OK){
+                    try {
+                        Uri uri = imageReturnedIntent.getData();
+
+                        review.setImageUri(uri.toString());
+                        final InputStream imageStream = getActivity().getContentResolver().openInputStream(uri);
+                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        setImageText.setVisibility(View.GONE);
+                        setImageBtn.setVisibility(View.GONE);
+                        imageView.setVisibility(View.VISIBLE);
+                        imageView.setImageBitmap(selectedImage);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+    }
 
     public void setFoodList(){
 
@@ -170,7 +242,11 @@ public class WriteReviewFragment extends Fragment{
         }.execute();
     }
 
-    public void createReview(){
+    public void createReview(int i ){
+
+        if (i == 2) {
+            openAddFoodFragment();
+        }
 
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -178,15 +254,15 @@ public class WriteReviewFragment extends Fragment{
 
                 reviewDAO.insert(review);
 
-        for (Review r: reviewDAO.getAllReviews()) {
-            Log.d("database id", r.getId() + "");
-            Log.d("database comment", r.getComment());
-            Log.d("database rating", r.getRating() + "");
-            Log.d("database restaurant", r.getRestaurantId());
-        }
-        return null;
-    }
-}.execute();
+                for (Review r: reviewDAO.getAllReviews()) {
+                    Log.d("database id", r.getId() + "");
+                    Log.d("database comment", r.getComment());
+                    Log.d("database rating", r.getRating() + "");
+                    Log.d("database restaurant", r.getRestaurantId());
+                }
+            return null;
+            }
+        }.execute();
     }
 
     public void updateReview() {

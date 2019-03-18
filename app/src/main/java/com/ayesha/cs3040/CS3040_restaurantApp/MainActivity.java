@@ -18,7 +18,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.ayesha.cs3040.CS3040_restaurantApp.search.SearchFragment;
+
+import com.ayesha.cs3040.CS3040_restaurantApp.review.AddFoodFragment;
+import com.ayesha.cs3040.CS3040_restaurantApp.search.SearchActivity;
 import com.ayesha.cs3040.myapp1.R;
 import com.ayesha.cs3040.CS3040_restaurantApp.bookings.BookingsFragment;
 import com.ayesha.cs3040.CS3040_restaurantApp.explore.VisitedFragment;
@@ -35,12 +37,11 @@ public class MainActivity extends AppCompatActivity {
 
     private final static int REQUEST_CODE_ASK_PERMISSIONS = 1;
     private static final String[] REQUIRED_SDK_PERMISSIONS = new String[]{
-            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
 
     final Fragment fragment1 = new VisitedFragment();
     final Fragment fragment2 = new BookingsFragment();
-    final Fragment fragment3 = new SearchFragment();
-    final Fragment fragment4 = new ReviewsFragment();
+    final Fragment fragment3 = new AddFoodFragment.ReviewsFragment();
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = fragment1;
 
@@ -59,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        fm.beginTransaction().add(R.id.main_container, fragment4, "4").hide(fragment4).commit();
         fm.beginTransaction().add(R.id.main_container, fragment3, "3").hide(fragment3).commit();
         fm.beginTransaction().add(R.id.main_container, fragment2, "2").hide(fragment2).commit();
         fm.beginTransaction().add(R.id.main_container,fragment1, "1").addToBackStack(null).commit();
@@ -84,14 +84,12 @@ public class MainActivity extends AppCompatActivity {
                     return true;
 
                 case R.id.navigation_search:
-//                    fm.beginTransaction().hide(active).show(fragment3).commit();
-//                    active = fragment3;
                     Intent i = new Intent(MainActivity.this, SearchActivity.class);
                     startActivity(i);
                     return true;
                 case R.id.navigation_reviews:
-                    fm.beginTransaction().hide(active).show(fragment4).commit();
-                    active = fragment4;
+                    fm.beginTransaction().hide(active).show(fragment3).commit();
+                    active = fragment3;
                     return true;
             }
             return false;

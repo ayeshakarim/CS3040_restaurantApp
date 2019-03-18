@@ -1,4 +1,4 @@
-package com.ayesha.cs3040.CS3040_restaurantApp;
+package com.ayesha.cs3040.CS3040_restaurantApp.search;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.ayesha.cs3040.CS3040_restaurantApp.MainActivity;
 import com.ayesha.cs3040.CS3040_restaurantApp.db.RestaurantDAO;
 import com.ayesha.cs3040.CS3040_restaurantApp.db.RestaurantDatabase;
 import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;

@@ -11,7 +11,7 @@ import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 import com.ayesha.cs3040.CS3040_restaurantApp.review.Review;
 
 @Database(entities = { RestaurantItem.class, Review.class, FoodItem.class},
-        version = 3)
+        version = 2)
 @TypeConverters({Converters.class})
 public abstract class RestaurantDatabase extends RoomDatabase {
 

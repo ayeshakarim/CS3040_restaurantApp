@@ -1,7 +1,6 @@
-package com.ayesha.cs3040.CS3040_restaurantApp;
+package com.ayesha.cs3040.CS3040_restaurantApp.search;
 
 import android.location.Location;
-import android.util.Log;
 
 import com.ayesha.cs3040.CS3040_restaurantApp.item.RestaurantItem;
 

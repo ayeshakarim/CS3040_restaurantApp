@@ -117,7 +117,6 @@ public class BookingsFragment extends Fragment implements View.OnClickListener{
 
         switch (view.getId()) {
             case R.id.bookings_sort_date:
-
                 new AsyncTask<Void, Void, Void>() {
                     @Override
                     protected Void doInBackground(Void... voids) {
@@ -126,12 +125,9 @@ public class BookingsFragment extends Fragment implements View.OnClickListener{
                     }
                 }.execute();
                 Toast.makeText(getContext(), "ordering by date", Toast.LENGTH_SHORT).show();
-
                 break;
             case R.id.bookings_sort_distance:
-
-                        orderByLocation();
-
+                orderByLocation();
                 Toast.makeText(getContext(), "ordering by distance from me", Toast.LENGTH_SHORT).show();
                 break;
 //            case R.id.bookings_sort_a-z:
