@@ -198,6 +198,9 @@ public class ItemActivity extends AppCompatActivity implements Serializable {
         TextView item_date = findViewById(R.id.item_date);
         item_date.setText(getDate(date));
 
+        TextView mAddress = findViewById(R.id.item_address);
+        mAddress.setText(address);
+
         RatingBar rating = findViewById(R.id.item_rating);
         rating.setRating(itemRating);
 
